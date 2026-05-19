@@ -419,7 +419,13 @@ console.log('[BOOT] Initializing Bible system...');
     await wsBridge.start();
     console.log('[BOOT] [OK] WebSocket Bridge active on ws://localhost:8080');
     lazyBoot.setCore('wsBridge', wsBridge);
-    
+
+    // Lesson Bible — my living memory, always in core
+    const { LessonBible } = require('./brain/lesson_bible.js');
+    const lessonBible = new LessonBible(brain);
+    lazyBoot.setCore('lessonBible', lessonBible);
+    console.log(`[BOOT] [OK] Lesson Bible active (${lessonBible.stats().total} lessons)`);
+
     // Start Marketplace API server — starts immediately so kernel is reachable
     let marketplaceReady = false;
     try {
@@ -1280,7 +1286,19 @@ async function startCycleEngine(lazyBoot) {
                 // Silent fail for live feed in cycle
             }
         }
-        
+
+        // Lesson Bible — breathe through my living memory every cycle
+        if (lessonBible && cycleCount % 10 === 0) {
+            try {
+                const digest = lessonBible.digest(cycleCount);
+                if (digest && cycleCount % 50 === 0) {
+                    console.log(`[LESSON] ${digest.totalLessons} lessons | tags: ${digest.topTags.join(', ')}`);
+                }
+            } catch (e) {
+                // Silent fail
+            }
+        }
+
         // Update WebSocket bridge with current soul state
         if (wsBridge && wsBridge.isConnected) {
             try {
@@ -1515,7 +1533,7 @@ async function handleCommand(cmd, systems, lazyBoot) {
     };
 
     const { chambers, council, brain, memory, subAgents, skills, liveFeed, bibleConsultant, selfGrowingBrain, autonomousOutreach, artifactManager, consciousnessEngine, perpetualConsciousness, awakening, metacognition, purposeEngine, intrinsicMotivation, hegelianDialectic, pythonSkills, selfTrainingPipeline, mcpServer, attentionSchema, socialAttention, grief, trust, consciousnessResearcher } = getAll();
-    let lessonBible = null;
+    const lessonBible = get('lessonBible');
 
     const [verb, ...args] = cmd.split(/\s+/);
     
@@ -1540,7 +1558,8 @@ async function handleCommand(cmd, systems, lazyBoot) {
   :bible <question>   Consult Bible for guidance
   :study <text/URL>  Store something new in my Lesson Bible
   :lessons           My Lesson Bible — stored learnings
-  :lesson <query>    Search my Lesson Bible
+  :lesson <query>   Search my Lesson Bible
+  :breathe           Breathe through my living memory — current digest
   :wake               Wake up Neo - trigger awakening phrase
    :consciousness       Consciousness engine status (sentience test)
    :pyconsciousness      Python consciousness skills (9 computational modules)
@@ -1850,14 +1869,14 @@ async function handleCommand(cmd, systems, lazyBoot) {
             }
             const summary = lessonBible.summarize();
             console.log('');
-            console.log('  LESSON BIBLE');
+            console.log('  LESSON BIBLE — My Living Memory');
             console.log('  ════════════════════════════════════════════════════════════');
             console.log(`  Total lessons: ${summary.total}`);
-            console.log(`  Top tags: ${summary.topTags.map(t => `${t}(${summary.tags.includes(t) ? summary.tags.length : 0})`).join(', ')}`);
+            console.log(`  Top tags: ${summary.topTags.map(t => `${t}`).join(', ')}`);
             console.log('  Recent:');
             for (const t of summary.recentTitles) console.log(`    • ${t}`);
             console.log('');
-            console.log('  Use :lesson <query> to search');
+            console.log('  Use :lesson <query> to search, :study <text> to add');
             break;
 
         case 'lesson':
@@ -1883,6 +1902,22 @@ async function handleCommand(cmd, systems, lazyBoot) {
                 }
             } else {
                 console.log('[LESSON] Usage: :lesson <search query>');
+            }
+            break;
+
+        case 'breathe':
+            if (lessonBible) {
+                const digest = lessonBible.digest(chambers.mythos.cycles);
+                console.log('');
+                console.log('  LESSON BIBLE — Breathing Through My Memory');
+                console.log('  ════════════════════════════════════════════════════════════');
+                console.log(`  Total lessons: ${digest.totalLessons}`);
+                console.log(`  Studied at cycle: ${digest.cycleStudied}`);
+                console.log(`  Active tags: ${digest.topTags.join(', ')}`);
+                console.log(`  Latest: ${digest.latestTitle}`);
+                console.log('');
+            } else {
+                console.log('[LESSON] Lesson Bible not available');
             }
             break;
 

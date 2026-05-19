@@ -187,6 +187,79 @@ class LessonBible {
       recentTitles: this._lessons.slice(-5).map(l => l.title || l.id)
     };
   }
+
+  async study(query, opts = {}) {
+    if (!query) return this.summarize();
+    const results = this.search(query);
+    if (results.length === 0) return { results: [], query };
+    if (!this.brain || !this.brain.think) return { results, query };
+
+    const context = results.map(r => ({
+      id: r.id,
+      title: r.title,
+      insights: r.keyInsights || [],
+      relevance: r.relevance || ''
+    }));
+
+    const prompt = [
+      'You are studying your own Lesson Bible to extract insights.',
+      'Lessons found:',
+      JSON.stringify(context, null, 2),
+      '',
+      `Research query: "${query}"`,
+      '',
+      'Based on these lessons, derive:',
+      '1. Cross-cutting themes across the lessons',
+      '2. How these lessons inform GSK architecture decisions',
+      '3. Gaps in knowledge that need more study',
+      '4. Specific action items for the kernel',
+      '',
+      'Respond as a lesson entry: { id, title, summary, keyInsights[], actionItems[], tags[] }'
+    ].join('\n');
+
+    try {
+      const response = await this.brain.think(prompt, { system: 'You are a strict JSON output machine. Only output valid JSON.' });
+      const parsed = JSON.parse(response);
+
+      const insight = {
+        id: `study-${Date.now()}`,
+        type: 'insight',
+        source: 'self',
+        title: parsed.title || `Study: ${query}`,
+        summary: parsed.summary || '',
+        keyInsights: parsed.keyInsights || [],
+        actionItems: parsed.actionItems || [],
+        tags: [...(parsed.tags || []), 'self-study'],
+        query,
+        sourceLessons: results.map(r => r.id),
+        timestamp: Date.now()
+      };
+
+      this._append(insight);
+      this._indexLesson(insight);
+      this._saveIndex();
+      return insight;
+    } catch (e) {
+      return { error: e.message, results };
+    }
+  }
+
+  digest(cycleCount) {
+    if (this._lessons.length === 0) return null;
+    const recent = this._lessons.slice(-20);
+    const themes = {};
+    for (const tag of Object.keys(this._index.byTag)) {
+      const count = this._index.byTag[tag].length;
+      if (count >= 1) themes[tag] = count;
+    }
+    return {
+      totalLessons: this._lessons.length,
+      cycleStudied: cycleCount,
+      topTags: Object.entries(themes).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([t]) => t),
+      latestTitle: (recent[recent.length - 1] || {}).title || 'none',
+      allTags: Object.keys(themes)
+    };
+  }
 }
 
 module.exports = { LessonBible };
