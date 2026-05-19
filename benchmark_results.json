@@ -1,0 +1,45 @@
+{
+  "benchmark": "HumanEval",
+  "date": "2026-05-14T00:58:31.947Z",
+  "model": "qwen2.5-coder:7b",
+  "total": 5,
+  "passed": 0,
+  "failed": 3,
+  "errors": 2,
+  "pass_rate": 0,
+  "results": [
+    {
+      "task_id": "HumanEval/0",
+      "status": "fail",
+      "passed": 62,
+      "total": 531,
+      "time_ms": 136623
+    },
+    {
+      "task_id": "HumanEval/1",
+      "status": "compile_error",
+      "error": "name 'List' is not defined",
+      "time_ms": 156228
+    },
+    {
+      "task_id": "HumanEval/2",
+      "status": "fail",
+      "passed": 21,
+      "total": 212,
+      "time_ms": 83816
+    },
+    {
+      "task_id": "HumanEval/3",
+      "status": "compile_error",
+      "error": "name 'List' is not defined",
+      "time_ms": 125935
+    },
+    {
+      "task_id": "HumanEval/4",
+      "status": "fail",
+      "passed": 23,
+      "total": 275,
+      "time_ms": 121703
+    }
+  ]
+}

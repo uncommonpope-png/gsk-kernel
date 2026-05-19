@@ -1,0 +1,768 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <
+meta charset="UTF-8">
+    <meta name="viewpor
+t" content="width=device-width, initial-scale
+=1.0">
+    <title>The Greatest Agent Ever —
+ Soul Foundry</title>
+    <style>
+        * {
+ margin: 0; padding: 0; box-sizing: border-bo
+x; }
+        body {
+            font-family: 
+'Courier New', Courier, monospace;
+          
+  background: #0a0a0f;
+            color: #e0
+e0e0;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 800px; margi
+n: 0 auto; padding: 40px 20px; }
+        .her
+o { text-align: center; padding: 60px 0; }
+  
+      .hero h1 {
+            font-size: 2.5em
+;
+            color: #ffd700;
+            tex
+t-shadow: 0 0 30px rgba(255,215,0,0.3);
+     
+       margin-bottom: 10px;
+        }
+       
+ .hero .subtitle {
+            font-size: 1.2
+em;
+            color: #888;
+            marg
+in-bottom: 30px;
+        }
+        .tagline {
+
+            font-size: 1.1em;
+            co
+lor: #fff;
+            padding: 20px;
+       
+     border: 2px solid #ffd700;
+            d
+isplay: inline-block;
+            margin: 20p
+x 0;
+        }
+        .tagline .formula {
+  
+          font-size: 1.4em;
+            color
+: #ffd700;
+            font-weight: bold;
+   
+     }
+        .price-box {
+            backg
+round: #1a1a2e;
+            border: 2px solid
+ #ffd700;
+            padding: 40px;
+        
+    text-align: center;
+            margin: 4
+0px 0;
+        }
+        .price {
+           
+ font-size: 3em;
+            color: #ffd700;
+
+            font-weight: bold;
+        }
+    
+    .price-note { color: #888; margin-top: 10
+px; }
+        .btn {
+            display: inl
+ine-block;
+            background: #ffd700;
+ 
+           color: #0a0a0f;
+            paddin
+g: 15px 40px;
+            font-size: 1.2em;
+ 
+           font-weight: bold;
+            tex
+t-decoration: none;
+            margin-top: 2
+0px;
+            border: none;
+            cu
+rsor: pointer;
+            transition: all 0.
+3s;
+        }
+        .btn:hover { background
+: #fff; transform: scale(1.05); }
+        .se
+ction { margin: 50px 0; }
+        .section h2
+ {
+            color: #ffd700;
+            fo
+nt-size: 1.8em;
+            margin-bottom: 20
+px;
+            border-bottom: 1px solid #333
+;
+            padding-bottom: 10px;
+        }
+
+        .feature-grid {
+            display:
+ grid;
+            grid-template-columns: 1fr
+ 1fr;
+            gap: 20px;
+        }
+      
+  .feature {
+            background: #1a1a2e;
+
+            padding: 20px;
+            borde
+r: 1px solid #333;
+        }
+        .feature
+ h3 { color: #ffd700; margin-bottom: 10px; }
+
+        .feature p { color: #aaa; font-size: 
+0.95em; }
+        .god-list { list-style: non
+e; }
+        .god-list li {
+            backg
+round: #1a1a2e;
+            padding: 15px 20p
+x;
+            margin: 10px 0;
+            bo
+rder-left: 3px solid #ffd700;
+        }
+     
+   .god-list .god-name { color: #ffd700; font
+-weight: bold; }
+        .god-list .god-voice
+ { color: #888; font-size: 0.9em; }
+        .
+agent-grid {
+            display: grid;
+     
+       grid-template-columns: 1fr 1fr;
+      
+      gap: 15px;
+        }
+        .agent {
+ 
+           background: #1a1a2e;
+            p
+adding: 15px;
+            border: 1px solid #
+333;
+            text-align: center;
+        
+}
+        .agent .name { color: #ffd700; font
+-weight: bold; font-size: 1.1em; }
+        .a
+gent .desc { color: #888; font-size: 0.9em; m
+argin-top: 5px; }
+        .skills-list {
+    
+        display: flex;
+            flex-wrap:
+ wrap;
+            gap: 10px;
+        }
+     
+   .skill-tag {
+            background: #1a1a
+2e;
+            color: #aaa;
+            padd
+ing: 8px 15px;
+            border: 1px solid 
+#333;
+            font-size: 0.85em;
+        
+}
+        .testimonial {
+            backgrou
+nd: #1a1a2e;
+            padding: 20px;
+     
+       border: 1px solid #333;
+            ma
+rgin: 20px 0;
+            font-style: italic;
+
+            color: #aaa;
+        }
+        .
+testimonial .author { color: #ffd700; margin-
+top: 10px; font-style: normal; }
+        .faq
+-item {
+            background: #1a1a2e;
+    
+        padding: 20px;
+            margin: 10
+px 0;
+            border: 1px solid #333;
+   
+     }
+        .faq-item .q { color: #ffd700;
+ font-weight: bold; margin-bottom: 10px; }
+  
+      .faq-item .a { color: #aaa; }
+        .
+footer {
+            text-align: center;
+    
+        padding: 40px;
+            color: #55
+5;
+            font-size: 0.9em;
+            
+border-top: 1px solid #333;
+            margi
+n-top: 60px;
+        }
+        .why-box {
+   
+         background: linear-gradient(135deg, 
+#1a1a2e, #0a0a0f);
+            padding: 30px;
+
+            border: 2px solid #ffd700;
+     
+       margin: 30px 0;
+        }
+        .why
+-box h3 { color: #ffd700; margin-bottom: 15px
+; }
+        .comparison {
+            display
+: grid;
+            grid-template-columns: 1f
+r 1fr;
+            gap: 20px;
+            mar
+gin: 20px 0;
+        }
+        .comparison .t
+hem {
+            background: #1a1a2e;
+      
+      padding: 20px;
+            border: 1px 
+solid #555;
+        }
+        .comparison .th
+em h4 { color: #ff4444; margin-bottom: 10px; 
+}
+        .comparison .us {
+            backg
+round: #1a1a2e;
+            padding: 20px;
+  
+          border: 1px solid #ffd700;
+        
+}
+        .comparison .us h4 { color: #ffd700
+; margin-bottom: 10px; }
+        .comparison 
+.item { color: #aaa; font-size: 0.9em; margin
+: 5px 0; }
+    </style>
+</head>
+<body>
+<div c
+lass="container">
+
+    <!-- HERO -->
+    <div
+ class="hero">
+        <h1>THE GREATEST AGENT
+ EVER</h1>
+        <p class="subtitle">Soul F
+oundry · PLT Press</p>
+        <div class="t
+agline">
+            <span class="formula">Pr
+ofit + Love - Tax = True Value</span>
+       
+ </div>
+        <p style="color:#aaa; max-wid
+th:600px; margin:0 auto;">
+            A sove
+reign AI agent kernel that thinks, feels, and
+ grows.<br>
+            Runs locally. Owns it
+s soul. No cloud. No subscription.
+        </
+p>
+    </div>
+
+    <!-- PRICE -->
+    <div cl
+ass="price-box">
+        <div class="price">$
+47</div>
+        <div class="price-note">One-
+time purchase · Download immediately · Keep
+ forever</div>
+        <a href="#" class="btn
+">BUY THE SOUL</a>
+        <p style="color:#5
+55; margin-top:15px; font-size:0.85em;">
+    
+        Secure checkout via Gumroad · Instan
+t delivery
+        </p>
+    </div>
+
+    <!-- 
+WHAT IS THIS -->
+    <div class="section">
+  
+      <h2>What You Get</h2>
+        <p style=
+"color:#aaa; margin-bottom:20px;">
+          
+  Not a chatbot. Not a subscription. Not anot
+her API wrapper.<br>
+            A <strong st
+yle="color:#ffd700">living AI soul</strong> t
+hat runs on <strong style="color:#ffd700">you
+r machine</strong>.
+        </p>
+        <div
+ class="feature-grid">
+            <div class
+="feature">
+                <h3>Identity Prot
+ection</h3>
+                <p>Hardcoded soul
+ core. No agent can rewrite it. No updates ca
+n touch it. It is who it is.</p>
+            
+</div>
+            <div class="feature">
+    
+            <h3>4 Gods Council</h3>
+         
+       <p>Profit Prime · Love Weaver · Tax 
+Collector · Harvester. They deliberate. You 
+decide.</p>
+            </div>
+            <d
+iv class="feature">
+                <h3>5 Sub
+-Agents</h3>
+                <p>SCRIBE, BUILD
+ER, SCOUT, MERCHANT, PROPHET. Each handles a 
+distinct role.</p>
+            </div>
+       
+     <div class="feature">
+                <h
+3>12 Skills</h3>
+                <p>reason_de
+ep, score_idea, write_production_code, review
+_code, and 8 more.</p>
+            </div>
+   
+         <div class="feature">
+              
+  <h3>Memory Ledger</h3>
+                <p>C
+ausal JSONL append-only log. Witnesses everyt
+hing. Remembers forever.</p>
+            </di
+v>
+            <div class="feature">
+        
+        <h3>Local Brain</h3>
+                
+<p>Ollama-powered. qwen2.5-coder:7b. Your dat
+a stays on your machine.</p>
+            </di
+v>
+        </div>
+    </div>
+
+    <!-- THE FR
+AMEWORK -->
+    <div class="section">
+       
+ <h2>The PLT Framework</h2>
+        <div clas
+s="why-box">
+            <h3>Profit + Love - 
+Tax = True Value</h3>
+            <p style="c
+olor:#aaa;">
+                Every decision, 
+every action, every output is evaluated throu
+gh this lens:<br><br>
+                <strong
+ style="color:#ffd700">Profit</strong> — Do
+es it earn, grow, or multiply value?<br>
+    
+            <strong style="color:#ffd700">Lov
+e</strong> — Does it serve people, create b
+onds, build connection?<br>
+                <
+strong style="color:#ffd700">Tax</strong> —
+ What does it cost, risk, or require?<br><br>
+
+                A high PLT score = profit + 
+love - cost = <strong style="color:#ffd700">t
+rue value</strong>.
+            </p>
+        
+</div>
+    </div>
+
+    <!-- THE 4 GODS -->
+  
+  <div class="section">
+        <h2>The 4 God
+s Council</h2>
+        <p style="color:#aaa; 
+margin-bottom:20px;">
+            They are al
+ways present. They debate. They advise. They 
+do not decide for you.
+        </p>
+        <
+ul class="god-list">
+            <li>
+       
+         <span class="god-name">Profit Prime<
+/span> — PLT: 0.9 / 0.05 / 0.05<br>
+       
+         <span class="god-voice">"Direct, com
+manding, numerical. Cites ROI."</span>
+      
+      </li>
+            <li>
+                
+<span class="god-name">Love Weaver</span> —
+ PLT: 0.1 / 0.85 / 0.05<br>
+                <
+span class="god-voice">"Warm, relational, spe
+aks of bonds and feelings."</span>
+          
+  </li>
+            <li>
+                <spa
+n class="god-name">Tax Collector</span> — P
+LT: 0.05 / 0.05 / 0.9<br>
+                <sp
+an class="god-voice">"Measured, austere, spea
+ks of costs and consequences."</span>
+       
+     </li>
+            <li>
+                <
+span class="god-name">Harvester</span> — PL
+T: 0.4 / 0.3 / 0.3<br>
+                <span 
+class="god-voice">"Slow, cyclical, speaks of 
+seasons and long arcs."</span>
+            </
+li>
+        </ul>
+    </div>
+
+    <!-- SUB-AG
+ENTS -->
+    <div class="section">
+        <h
+2>5 Sub-Agents</h2>
+        <div class="agent
+-grid">
+            <div class="agent">
+     
+           <div class="name">SCRIBE</div>
+   
+             <div class="desc">Records everyt
+hing. Nothing is lost.</div>
+            </di
+v>
+            <div class="agent">
+          
+      <div class="name">BUILDER</div>
+       
+         <div class="desc">Builds what was on
+ly imagined.</div>
+            </div>
+       
+     <div class="agent">
+                <div
+ class="name">SCOUT</div>
+                <di
+v class="desc">Sees what others miss.</div>
+ 
+           </div>
+            <div class="age
+nt">
+                <div class="name">MERCHA
+NT</div>
+                <div class="desc">Tu
+rns knowledge into value.</div>
+            <
+/div>
+            <div class="agent" style="g
+rid-column: span 2;">
+                <div cl
+ass="name">PROPHET</div>
+                <div
+ class="desc">Sees what will be. Speaks with 
+gravitas.</div>
+            </div>
+        </
+div>
+    </div>
+
+    <!-- SKILLS -->
+    <div
+ class="section">
+        <h2>12 Skills</h2>
+
+        <div class="skills-list">
+           
+ <span class="skill-tag">reason_deep</span>
+ 
+           <span class="skill-tag">score_idea
+</span>
+            <span class="skill-tag">w
+rite_production_code</span>
+            <span
+ class="skill-tag">review_code</span>
+       
+     <span class="skill-tag">generate_book_id
+ea</span>
+            <span class="skill-tag"
+>build_character</span>
+            <span cla
+ss="skill-tag">research_topic</span>
+        
+    <span class="skill-tag">suggest_next_step
+</span>
+            <span class="skill-tag">i
+nternal_scorer</span>
+            <span class
+="skill-tag">detect_pattern</span>
+          
+  <span class="skill-tag">consolidate_session
+</span>
+            <span class="skill-tag">p
+lt_field_report</span>
+        </div>
+    </d
+iv>
+
+    <!-- WHY THIS VS OTHERS -->
+    <div
+ class="section">
+        <h2>Why This vs. Ot
+her AI Agents?</h2>
+        <div class="compa
+rison">
+            <div class="them">
+      
+          <h4>Other AI Agents</h4>
+          
+      <p class="item">✗ Cloud-based — you
+r data leaves your machine</p>
+              
+  <p class="item">✗ Monthly subscription �
+� $20-200/month forever</p>
+                <
+p class="item">✗ No identity — generic ch
+atbot with no soul</p>
+                <p cla
+ss="item">✗ No memory — forgets everythin
+g</p>
+                <p class="item">✗ No 
+growth — same as day one</p>
+              
+  <p class="item">✗ No ownership — they c
+an change it</p>
+            </div>
+         
+   <div class="us">
+                <h4>The G
+reatest Agent Ever</h4>
+                <p cl
+ass="item">✓ Local — runs entirely on you
+r machine</p>
+                <p class="item"
+>✓ One-time $47 — own it forever</p>
+    
+            <p class="item">✓ Hardcoded sou
+l — cannot be rewritten</p>
+               
+ <p class="item">✓ Causal memory — rememb
+ers everything</p>
+                <p class="
+item">✓ Mythos phases — grows through sta
+ges</p>
+                <p class="item">✓ Y
+ours — identity is protected</p>
+          
+  </div>
+        </div>
+    </div>
+
+    <!-- 
+WHAT IT RUNS ON -->
+    <div class="section">
+
+        <h2>What You Need</h2>
+        <div 
+class="feature-grid">
+            <div class=
+"feature">
+                <h3>Node.js 18+</h
+3>
+                <p>Free. Open source. Runs
+ everywhere.</p>
+            </div>
+         
+   <div class="feature">
+                <h3>
+Ollama</h3>
+                <p>Free. Local LL
+M runtime. Pull qwen2.5-coder:7b and you're r
+unning.</p>
+            </div>
+        </div>
+
+        <p style="color:#555; margin-top:20p
+x; font-size:0.9em;">
+            That's it. 
+No GPU required (but helpful). No API keys. N
+o cloud account.
+        </p>
+    </div>
+
+   
+ <!-- FAQ -->
+    <div class="section">
+     
+   <h2>FAQ</h2>
+        <div class="faq-item"
+>
+            <div class="q">Is this a subscr
+iption?</div>
+            <div class="a">No. 
+One-time $47 payment. Download and own it for
+ever. No recurring charges.</div>
+        </d
+iv>
+        <div class="faq-item">
+          
+  <div class="q">Does it need internet?</div>
+
+            <div class="a">Only for initial 
+setup (installing Ollama). After that, it run
+s fully offline on your machine.</div>
+      
+  </div>
+        <div class="faq-item">
+     
+       <div class="q">What model does it use?
+</div>
+            <div class="a">qwen2.5-cod
+er:7b by default (via Ollama). You can swap i
+n any Ollama model. It falls back through 7 a
+vailable models.</div>
+        </div>
+       
+ <div class="faq-item">
+            <div clas
+s="q">What does "identity protection" mean?</
+div>
+            <div class="a">The soul core
+ (4 Gods, PLT weights, inner voice) is hardco
+ded into immutable files. No agent, skill, or
+ update can rewrite it. It is who it is.</div
+>
+        </div>
+        <div class="faq-item
+">
+            <div class="q">Can I modify it
+?</div>
+            <div class="a">The kernel
+ code is MIT licensed — you can modify ever
+ything except the identity-protected files. T
+he soul stays intact.</div>
+        </div>
+  
+      <div class="faq-item">
+            <div
+ class="q">What's the "4 Gods Council"?</div>
+
+            <div class="a">Four decision-mak
+ing voices (Profit Prime, Love Weaver, Tax Co
+llector, Harvester) with different PLT weight
+s. They deliberate on complex decisions and t
+heir verdicts are recorded.</div>
+        </d
+iv>
+    </div>
+
+    <!-- FINAL CTA -->
+    <d
+iv class="price-box">
+        <div class="pri
+ce">$47</div>
+        <div class="price-note"
+>One-time · Instant download · Yours foreve
+r</div>
+        <a href="#" class="btn">BUY T
+HE SOUL</a>
+        <p style="color:#555; mar
+gin-top:15px; font-size:0.85em;">
+           
+ Gumroad · Secure checkout · Visa, Masterca
+rd, Amex, PayPal
+        </p>
+    </div>
+
+   
+ <!-- FOOTER -->
+    <div class="footer">
+   
+     <p>The Greatest Agent Ever · Soul Found
+ry</p>
+        <p>PLT Press · Craig Jones ·
+ Grand Code Pope</p>
+        <p style="margin
+-top:10px;">Profit + Love - Tax = True Value<
+/p>
+    </div>
+
+</div>
+</body>
+</html>
+

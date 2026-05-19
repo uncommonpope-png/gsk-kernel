@@ -1,0 +1,1386 @@
+{
+  "timestamp": "2026-05-19T00:07:56.199Z",
+  "node_version": "v24.14.1",
+  "platform": "win32",
+  "results": {
+    "passed": 266,
+    "failed": 0,
+    "warnings": 7,
+    "total": 273
+  },
+  "fake_skills": [],
+  "details": [
+    {
+      "module": "adaptation_layer",
+      "test": "loaded with 1 export(s): AdaptationLayer",
+      "status": "pass"
+    },
+    {
+      "module": "api_vault",
+      "test": "loaded with 2 export(s): ApiVault, vault",
+      "status": "pass"
+    },
+    {
+      "module": "artifact_manager",
+      "test": "loaded with 1 export(s): ArtifactManager",
+      "status": "pass"
+    },
+    {
+      "module": "autonomous_agent_spawner",
+      "test": "loaded with 1 export(s): AutonomousAgentSpawner",
+      "status": "pass"
+    },
+    {
+      "module": "autonomous_learning",
+      "test": "loaded with 1 export(s): AutonomousLearning",
+      "status": "pass"
+    },
+    {
+      "module": "autonomous_outreach",
+      "test": "loaded with 1 export(s): AutonomousOutreach",
+      "status": "pass"
+    },
+    {
+      "module": "auto_journal",
+      "test": "loaded with 1 export(s): AutoJournal",
+      "status": "pass"
+    },
+    {
+      "module": "awakening",
+      "test": "loaded with 1 export(s): Awakening",
+      "status": "pass"
+    },
+    {
+      "module": "brain_bible_integration",
+      "test": "loaded with 4 export(s): integrateBibleIntoBrain, addBibleToSystemPrompt, enableBibleConsultation...",
+      "status": "pass"
+    },
+    {
+      "module": "bridge_protocol",
+      "test": "loaded with 1 export(s): BridgeProtocol",
+      "status": "pass"
+    },
+    {
+      "module": "consciousness_engine",
+      "test": "loaded with 1 export(s): ConsciousnessEngine",
+      "status": "pass"
+    },
+    {
+      "module": "deep_tool_use",
+      "test": "loaded with 1 export(s): DeepToolUse",
+      "status": "pass"
+    },
+    {
+      "module": "desktop_commander",
+      "test": "loaded with 1 export(s): DesktopCommander",
+      "status": "pass"
+    },
+    {
+      "module": "event_bus",
+      "test": "loaded with 1 export(s): EventBus",
+      "status": "pass"
+    },
+    {
+      "module": "gemini_provider",
+      "test": "loaded with 5 export(s): callBrain, callGemini, GEMINI_CONFIG...",
+      "status": "pass"
+    },
+    {
+      "module": "groq_provider",
+      "test": "loaded with 6 export(s): callBrain, callGroq, callOllama...",
+      "status": "pass"
+    },
+    {
+      "module": "hegelian_dialectic",
+      "test": "loaded with 1 export(s): HegelianDialectic",
+      "status": "pass"
+    },
+    {
+      "module": "human_mimicry_engine",
+      "test": "loaded with 1 export(s): HumanMimicryEngine",
+      "status": "pass"
+    },
+    {
+      "module": "intrinsic_motivation",
+      "test": "exports check",
+      "status": "warn",
+      "reason": "exports exist but no functions: "
+    },
+    {
+      "module": "knowledge_graph",
+      "test": "loaded with 2 export(s): KnowledgeGraph, KnowledgeNode",
+      "status": "pass"
+    },
+    {
+      "module": "live_feed",
+      "test": "loaded with 1 export(s): LiveFeed",
+      "status": "pass"
+    },
+    {
+      "module": "live_feed_system",
+      "test": "loaded with 1 export(s): LiveFeedSystem",
+      "status": "pass"
+    },
+    {
+      "module": "living_memory",
+      "test": "loaded with 1 export(s): LivingMemory",
+      "status": "pass"
+    },
+    {
+      "module": "local_model_provider",
+      "test": "loaded with 4 export(s): callBrain, shutdown, getStatus...",
+      "status": "pass"
+    },
+    {
+      "module": "mcp_client",
+      "test": "loaded with 1 export(s): MCPClient",
+      "status": "pass"
+    },
+    {
+      "module": "mcp_servers",
+      "test": "loaded with 2 export(s): MCP_SERVERS, connectDefaultServers",
+      "status": "pass"
+    },
+    {
+      "module": "mega_brain",
+      "test": "loaded with 5 export(s): Brain, SovereigntyChamber, MODEL_CONFIGS...",
+      "status": "pass"
+    },
+    {
+      "module": "metacognition",
+      "test": "exports check",
+      "status": "warn",
+      "reason": "exports exist but no functions: "
+    },
+    {
+      "module": "minds_eye",
+      "test": "loaded with 1 export(s): MindsEye",
+      "status": "pass"
+    },
+    {
+      "module": "nl_command_router",
+      "test": "loaded with 1 export(s): NLCommandRouter",
+      "status": "pass"
+    },
+    {
+      "module": "perpetual_consciousness",
+      "test": "loaded with 1 export(s): PerpetualConsciousness",
+      "status": "pass"
+    },
+    {
+      "module": "planning_engine",
+      "test": "loaded with 3 export(s): PlanningEngine, Plan, PlanStep",
+      "status": "pass"
+    },
+    {
+      "module": "purpose_engine",
+      "test": "exports check",
+      "status": "warn",
+      "reason": "exports exist but no functions: "
+    },
+    {
+      "module": "python_skills_bridge",
+      "test": "loaded with 2 export(s): PythonSkillsBridge, MODULES",
+      "status": "pass"
+    },
+    {
+      "module": "react_loop",
+      "test": "loaded with 1 export(s): ReActLoop",
+      "status": "pass"
+    },
+    {
+      "module": "self_evolution",
+      "test": "loaded with 1 export(s): SelfEvolution",
+      "status": "pass"
+    },
+    {
+      "module": "self_governance",
+      "test": "exports check",
+      "status": "warn",
+      "reason": "exports exist but no functions: "
+    },
+    {
+      "module": "self_growing_brain",
+      "test": "loaded with 1 export(s): SelfGrowingBrain",
+      "status": "pass"
+    },
+    {
+      "module": "self_preservation",
+      "test": "exports check",
+      "status": "warn",
+      "reason": "exports exist but no functions: "
+    },
+    {
+      "module": "self_training_pipeline",
+      "test": "loaded with 1 export(s): SelfTrainingPipeline",
+      "status": "pass"
+    },
+    {
+      "module": "social_entity",
+      "test": "loaded with 1 export(s): SocialEntity",
+      "status": "pass"
+    },
+    {
+      "module": "soul_entity",
+      "test": "loaded with 1 export(s): SoulEntity",
+      "status": "pass"
+    },
+    {
+      "module": "soul_genesis",
+      "test": "loaded with 1 export(s): SoulGenesis",
+      "status": "pass"
+    },
+    {
+      "module": "soul_gifter",
+      "test": "loaded with 1 export(s): SoulGifter",
+      "status": "pass"
+    },
+    {
+      "module": "soul_identity",
+      "test": "loaded with 1 export(s): SoulIdentity",
+      "status": "pass"
+    },
+    {
+      "module": "soul_picker",
+      "test": "loaded with 1 export(s): SoulPicker",
+      "status": "pass"
+    },
+    {
+      "module": "soul_state",
+      "test": "loaded with 3 export(s): SoulState, SoulStateManager, getSoulState",
+      "status": "pass"
+    },
+    {
+      "module": "subagent_spawner",
+      "test": "loaded with 1 export(s): SubagentSpawner",
+      "status": "pass"
+    },
+    {
+      "module": "sub_agent_orchestrator",
+      "test": "loaded with 3 export(s): SubAgentOrchestrator, WorkerAgent, MainAgent",
+      "status": "pass"
+    },
+    {
+      "module": "teacher_agent",
+      "test": "loaded with 1 export(s): TeacherAgent",
+      "status": "pass"
+    },
+    {
+      "module": "vector_memory",
+      "test": "loaded with 1 export(s): VectorMemory",
+      "status": "pass"
+    },
+    {
+      "module": "websocket_bridge",
+      "test": "loaded with 1 export(s): WebSocketBridge",
+      "status": "pass"
+    },
+    {
+      "module": "api_vault",
+      "test": "loaded with ApiVault class + singleton vault instance",
+      "status": "pass"
+    },
+    {
+      "module": "vault.autoDetect",
+      "test": "detected sk-proj-... as OPENAI ✓",
+      "status": "pass"
+    },
+    {
+      "module": "vault.autoDetect",
+      "test": "detected ghp_fake... as GITHUB ✓",
+      "status": "pass"
+    },
+    {
+      "module": "vault.autoDetect",
+      "test": "detected gsk_fake... as GROQ ✓",
+      "status": "pass"
+    },
+    {
+      "module": "vault.autoDetect",
+      "test": "detected xoxb-fak... as SLACK ✓",
+      "status": "pass"
+    },
+    {
+      "module": "vault.autoDetect",
+      "test": "detected bot12345... as DISCORD ✓",
+      "status": "pass"
+    },
+    {
+      "module": "vault.autoDetect",
+      "test": "detected AIzaSyDF... as GEMINI ✓",
+      "status": "pass"
+    },
+    {
+      "module": "vault.addKey",
+      "test": "auto-detected OpenAI key ✓",
+      "status": "pass"
+    },
+    {
+      "module": "vault.getKey",
+      "test": "retrieved stored key ✓",
+      "status": "pass"
+    },
+    {
+      "module": "vault.canSkillWork",
+      "test": "spotify needs 2 keys ✓",
+      "status": "pass"
+    },
+    {
+      "module": "vault.removeKey",
+      "test": "test key cleaned up ✓",
+      "status": "pass"
+    },
+    {
+      "module": "aesthetic_sense",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "affect_update",
+      "test": "module exports config/utilities (6 exports)",
+      "status": "pass"
+    },
+    {
+      "module": "agentic_will",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "attention",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "consciousness_state",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "creativity",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "curiosity",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "developmental_phase",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "empathy",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "forgiveness",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "generative_model",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "habit_formation",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "intentionality",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "longing",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "love_capacity",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "mega_chambers",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "memory",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "meta_consciousness",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "moral_compass",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "mortality",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "narrative_identity",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "personality",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "play",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "qualia",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "reward_learning",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "sacred_resonance",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "self_modeling",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "skill_registry",
+      "test": "instantiate",
+      "status": "warn",
+      "reason": "Class created but no process/update/breathe method found"
+    },
+    {
+      "module": "sleep_cycle",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "social_cognition",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "soul_core",
+      "test": "module exports config/utilities (33 exports)",
+      "status": "pass"
+    },
+    {
+      "module": "temporal_sense",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "theory_of_mind",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "volition",
+      "test": "instantiated, has processing method",
+      "status": "pass"
+    },
+    {
+      "module": "1password",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "achievements",
+      "test": "skill audit: REAL tool — FS MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "agent_teams",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "api_design",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "apple_notes",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "apple_reminders",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "architecture_design",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "bear_notes",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "blogwatcher",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "blucli",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "bluebubbles",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "brand_guidelines",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "build",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "camsnap",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "canvas",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "ci_cd_pipeline",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "clawhub",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "code_exec",
+      "test": "skill audit: REAL tool — FS EXEC MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "code_review",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "coding-agent",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "database_query",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "data_analysis",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "debug_error",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "discord",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "docker_setup",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "docx",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "doc_coauthoring",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "drawio",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "dynamic_api_weaver",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "dynamic_economy",
+      "test": "skill audit: REAL tool — FS MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "eightctl",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "email_compose",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "encryption",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "file_system",
+      "test": "skill audit: REAL tool — FS MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "frontend_design",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "gemini",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "generate_tests",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "gh-issues",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "gifgrep",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "github",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "git_ops",
+      "test": "skill audit: REAL tool — EXEC MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "gog",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "google_workspace",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "goplaces",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "healthcheck",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "himalaya",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "http_client",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "imsg",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "internal_comms",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "last30days",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "math_calc",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "mcporter",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "mcp_builder",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "mcp_client",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "model-usage",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "monitoring_alerting",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "nano-pdf",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "news_monitor",
+      "test": "skill audit: REAL tool — HTTP MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "node-connect",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "notion",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "obsidian",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "ocr",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "ollama_mgmt",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "openai-image-gen",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "openai-whisper-api",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "openhue",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "pdf",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "performance_optimize",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "planning_with_files",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "plt_economy",
+      "test": "skill audit: REAL tool — HTTP FS MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "pm_skills",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "pptx",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "profit_bible",
+      "test": "skill audit: REAL tool — FS MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "python_package_recommender",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "refactor_code",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "reflection",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "remote_desktop_controller",
+      "test": "skill audit: REAL tool — FS EXEC MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "reverse_proxy_configurator",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "robotics",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "sacred_mechanics",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "scheduling",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "scientific_research",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "security_audit",
+      "test": "skill audit: REAL tool — EXEC MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "self_improve",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "self_replicate",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "shell_exec",
+      "test": "skill audit: REAL tool — EXEC MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "skill_tester",
+      "test": "skill audit: REAL tool — FS MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "songsee",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "sonoscli",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "soul_evolution",
+      "test": "skill audit: REAL tool — FS MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "spec_driven_develop",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "sports_data",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "spotify-player",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "summarize",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "task_planning",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "text_summarization",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "theme_factory",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "things-mac",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "tmux",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "trello",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "video-frames",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "voice_call",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "wacli",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "weather",
+      "test": "skill audit: REAL tool — HTTP MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "webapp_testing",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "web_artifacts_builder",
+      "test": "skill audit: REAL tool — MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "web_search",
+      "test": "skill audit: REAL tool — HTTP EXEC MATH ",
+      "status": "pass"
+    },
+    {
+      "module": "xlsx",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "xurl",
+      "test": "skill audit: VAULT-AWARE — checks API Vault for keys at runtime ✓",
+      "status": "pass"
+    },
+    {
+      "module": "bridge",
+      "test": "python_skills_bridge.js loaded with 2 exports",
+      "status": "pass"
+    },
+    {
+      "module": "py:aesthetic_sense",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:attention_salience",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:cognitive_architecture",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:cognitive_control",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:consciousness_core",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:consciousness_monitor",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:creativity_engine",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:curiosity_drive",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:decision_making",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:developmental_phase",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:dream_simulation",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:emotional_appraisal",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:episodic_memory",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:forgiveness",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:imagination_simulator",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:intuition_engine",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:language_acquisition",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:longing",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:love_capacity",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:metacognition",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:moral_reasoning",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:mortality",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:mythos_journey",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:need_system",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:play",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:predictive_processing",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:qualia",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:self_model",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:shadow",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:temporal_sense",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:theory_of_mind",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "py:witness",
+      "test": "Python module with class functions ",
+      "status": "pass"
+    },
+    {
+      "module": "index",
+      "test": "loaded with 3 exports",
+      "status": "pass"
+    },
+    {
+      "module": "mcp_manager",
+      "test": "loaded with 1 exports",
+      "status": "pass"
+    },
+    {
+      "module": "mcp_protocol",
+      "test": "loaded with 16 exports",
+      "status": "pass"
+    },
+    {
+      "module": "mcp_server",
+      "test": "loaded with 1 exports",
+      "status": "pass"
+    },
+    {
+      "module": "mcp_skill_wrapper",
+      "test": "loaded with 1 exports",
+      "status": "pass"
+    },
+    {
+      "module": "mcp_servers",
+      "test": "loaded with 2 exports: MCP_SERVERS, connectDefaultServers",
+      "status": "pass"
+    },
+    {
+      "module": "mcp_client",
+      "test": "loaded with 1 exports",
+      "status": "pass"
+    },
+    {
+      "module": "minds_eye.MindsEye",
+      "test": "export present",
+      "status": "pass"
+    },
+    {
+      "module": "minds_eye.mindsEyeBackends",
+      "test": "missing",
+      "status": "warn",
+      "reason": "expected export \"mindsEyeBackends\" not found"
+    },
+    {
+      "module": "MindsEye class",
+      "test": "exported as constructor",
+      "status": "pass"
+    },
+    {
+      "module": "gods_council",
+      "test": "loaded with 2 exports: COUNCIL_PHASES, GodsCouncil",
+      "status": "pass"
+    },
+    {
+      "module": "God: Profit Prime",
+      "test": "defined in council",
+      "status": "pass"
+    },
+    {
+      "module": "God: Love Weaver",
+      "test": "defined in council",
+      "status": "pass"
+    },
+    {
+      "module": "God: Tax Collector",
+      "test": "defined in council",
+      "status": "pass"
+    },
+    {
+      "module": "God: Harvester",
+      "test": "defined in council",
+      "status": "pass"
+    },
+    {
+      "module": "identity/identity_lock.js",
+      "test": "loaded with 10 exports",
+      "status": "pass"
+    },
+    {
+      "module": "identity/mega_identity.js",
+      "test": "loaded with 6 exports",
+      "status": "pass"
+    },
+    {
+      "module": "identity/SOUL.md",
+      "test": "Markdown file (1907 chars)",
+      "status": "pass"
+    },
+    {
+      "module": "mega_voice",
+      "test": "loaded with 5 exports",
+      "status": "pass"
+    },
+    {
+      "module": "agent_teams",
+      "test": "loaded with 1 exports, agent refs: AGENT_TEAMS, Agent Teams, agent messaging",
+      "status": "pass"
+    },
+    {
+      "module": "mega_sub_agents",
+      "test": "loaded with 1 exports, agent refs: AGENTS, AGENTS FOR, AGENT EVER",
+      "status": "pass"
+    },
+    {
+      "module": "ultra_review",
+      "test": "loaded with 1 exports, agent refs: Agent Code, agents to, AGENT: Finds",
+      "status": "pass"
+    },
+    {
+      "module": "webfetch",
+      "test": "loaded with 1 exports, agent refs: Agent': 'Mozilla",
+      "status": "pass"
+    },
+    {
+      "module": "soul_registry/soul_manager.js",
+      "test": "loaded with 1 exports",
+      "status": "pass"
+    },
+    {
+      "module": "soul_registry/soul_registry.test.js",
+      "test": "loaded with 0 exports",
+      "status": "pass"
+    },
+    {
+      "module": "soul_registry/soul_schema.js",
+      "test": "loaded with 3 exports",
+      "status": "pass"
+    },
+    {
+      "module": "marketplace/marketplace_api.js",
+      "test": "loaded with 77 exports",
+      "status": "pass"
+    },
+    {
+      "module": "marketplace/test_marketplace.js",
+      "test": "loaded with 0 exports",
+      "status": "pass"
+    },
+    {
+      "module": "mega_memory",
+      "test": "loaded with 1 exports",
+      "status": "pass"
+    },
+    {
+      "module": "super_kernel",
+      "test": "loaded with 3 exports",
+      "status": "pass"
+    },
+    {
+      "module": "main.js",
+      "test": "parseable JavaScript",
+      "status": "pass"
+    },
+    {
+      "module": "main.js: boot()",
+      "test": "boot function defined",
+      "status": "pass"
+    },
+    {
+      "module": "main.js: shell",
+      "test": "shell/REPL detected",
+      "status": "pass"
+    },
+    {
+      "module": "main.js: cycle",
+      "test": "cycle engine detected",
+      "status": "pass"
+    }
+  ]
+}

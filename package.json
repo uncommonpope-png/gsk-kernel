@@ -1,0 +1,33 @@
+{
+  "name": "the-greatest-agent-ever",
+  "version": "1.0.0",
+  "description": "A sovereign AI agent kernel with PLT framework, 4 Gods Council, sub-agents, skills, and memory.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node --max-old-space-size=4096 src/main.js",
+    "boot": "node --max-old-space-size=4096 src/main.js",
+    "marketplace": "node src/marketplace/marketplace_api.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "soul",
+    "kernel",
+    "plt",
+    "sovereign",
+    "ollama",
+    "consciousness"
+  ],
+  "author": "Craig Jones (Grand Code Pope)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1",
+    "playwright": "^1.60.0",
+    "screenshot-desktop": "^1.15.4",
+    "uuid": "^14.0.0",
+    "ws": "^8.20.1"
+  }
+}

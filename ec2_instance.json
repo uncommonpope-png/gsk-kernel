@@ -1,0 +1,8 @@
+{
+  "instance_id": "i-0b73c2ab4cbeafc12",
+  "public_ip": "13.223.249.124",
+  "region": "us-east-1",
+  "type": "t3.micro",
+  "az": "us-east-1a",
+  "cost_per_hour": 0.0116
+}

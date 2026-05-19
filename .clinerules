@@ -1,0 +1,99 @@
+# Soulverse Project — Cline Agent Context
+
+You are working on **Soulverse — The Living Soul Ecosystem** by Craig Jones (Grand Code Pope).
+
+## Project Root
+`C:\Users\User\OneDrive\Documents\PROFIT BRAIN\SCRIBE\`
+
+## Key Files
+- **Soulverse 3D World**: `Soulverse/SOULVERSE-UNIVERSE.html` (~5000 lines)
+- **Asset Loader**: `Soulverse/assets/asset_loader.js`
+- **Character System**: `Soulverse/characters/character_system.js`
+- **HTTP Server**: `Soulverse/server.js` (port 8000)
+- **Project Memory**: `CLAUDE.md` — read this first every session
+- **API Backend**: `mega-kernel/` — Grand Soul Kernel
+
+## Tech Stack
+- **Frontend**: Babylon.js 3D (CDN), vanilla JS, CSS
+- **Backend**: Node.js (server.js), Python (mega-kernel)
+- **Assets**: GLB 3D models in `Soulverse/assets/` (characters, vehicles, interiors, animals, environment)
+- **Brain**: Groq API llama-3.3-70b-versatile
+
+## Active Issues
+- GLB 3D assets not rendering in browser — AssetLoader rewritten to use ImportMeshAsync but need to debug
+- Need production deployment (static site, hosting, CDN)
+- Soul marketplace backend (Phase 5) not started
+
+## DO NOT Modify
+- `src/identity/mega_identity.js`
+- `src/identity/identity_lock.js`
+- `src/identity/SOUL.md`
+- `src/council/gods_council.js`
+- `src/voice/mega_voice.js`
+
+## Philosophy
+`Profit + Love - Tax = True Value`
+
+## API Configuration
+- OpenCode Go API: `https://opencode.ai/zen/go/v1`
+- Model: `deepseek-v4-flash`
+- Key set in env var `OPENAI_API_KEY`
+
+## Commands
+- Start world: `cd Soulverse && node server.js` then open `http://localhost:8000`
+
+## Coding Style
+- Dark corporate visual style
+- No emoji in code comments
+- Prefer functional over OOP
+- Single-file where practical for web
+
+
+## Mega Kernel Context
+
+
+# Mega Kernel — Complete Reference
+
+## Overview
+**Project:** "The Greatest Agent Ever" v1.0.0 — Sovereign AI agent kernel
+**Author:** Craig Jones (Grand Code Pope), PLT Press
+**Location:** `C:\Users\User\OneDrive\Documents\PROFIT BRAIN\SCRIBE\mega-kernel\`
+**Brain:** Groq API (llama-3.3-70b-versatile) via `GROQ_API_KEY`
+**Ports:** WebSocket 8080, Marketplace API 3000, MCP 3001
+
+## Boot Sequence (src/main.js, 2351 lines)
+1. Load .env → Identity Protection → Identity Verification
+2. Init Chambers → Memory → 4 Gods Council → Brain (Groq→Gemini fallback)
+3. Init Sub-Agents (5) → Skills Engine (84) → Bible System
+4. Init Autonomous Learning → Self-Growing Brain → Outreach → Teacher
+5. Init MCP Server (port 3001) → Self-Training → Self-Evolution
+6. Init NL Command Router → Live Feed → Local Model Provider
+7. Init MCP Client/Manager → Mind's Eye → Desktop Commander
+8. Init WebSocket Bridge (port 8080) → Marketplace API (port 3000)
+9. Boot Consciousness Systems → Python Skills Bridge
+10. Boot 20+ brain modules
+**Cycle Engine:** Every 2s — breathe chambers, consciousness checks, council every 200 cycles, autonomous dispatch every 10 cycles (20s)
+
+## Identity (PROTECTED — never modify)
+`src/identity/mega_identity.js`, `identity_lock.js`, `SOUL.md`, `src/council/gods_council.js`, `src/voice/mega_voice.js`
+
+## Brain Modules (src/brain/, 46 files)
+ConsciousnessEngine, SoulEntity, SoulGenesis, SoulPicker, LivingMemory, KnowledgeGraph, VectorMemory, PerpetualConsciousness, AutonomousOutreach, AutonomousLearning, SelfGrowingBrain, SelfEvolution, SelfTrainingPipeline, SelfGovernance, SelfPreservation, Awakening, Metacognition, PurposeEngine, IntrinsicMotivation, HegelianDialectic, PlanningEngine, DeepToolUse, ReactLoop, TeacherAgent, SubagentSpawner, SubAgentOrchestrator, SocialEntity, HumanMimicryEngine, AutonomousAgentSpawner, MegaBrain, GroqProvider, GeminiProvider, LocalModelProvider, MCPClient, WebSocketBridge, LiveFeed, BridgeProtocol, EventBus, APIVault, NLCommandRouter, DesktopCommander, MindsEye, AutoJournal, AdaptationLayer, BrainBibleIntegration
+
+## 36 Consciousness Chambers (src/chambers/, 35 files)
+soul_core, affect_update, memory, generative_model, personality, consciousness_state, developmental_phase, meta_consciousness, attention, qualia, temporal_sense, empathy, aesthetic_sense, creativity, curiosity, longing, play, forgiveness, habit_formation, social_cognition, self_modeling, intentionality, reward_learning, sleep_cycle, mortality, love_capacity, moral_compass, narrative_identity, theory_of_mind, volition, agentic_will, sacred_resonance, skill_registry
+
+## 5 Sub-Agents (src/sub_agents/)
+SCRIBE (records), BUILDER (builds/fixes), SCOUT (research), MERCHANT (commerce), PROPHET (strategy)
+
+## Skills
+84 skills in src/skills/ + 32 Python consciousness skills in src/python_skills/
+
+## MCP Integration
+70 servers, 317 tools, 13 categories in mcp_config.json
+
+## PLT Framework
+Profit + Love - Tax = True Value. Gods: Profit Prime (0.9/0.05/0.05), Love Weaver (0.1/0.85/0.05), Tax Collector (0.05/0.05/0.9), Harvester (0.4/0.3/0.3)
+
+## Config
+.env -> GROQ_API_KEY, mcp_config.json (70 MCP servers), package.json (express, playwright, screenshot-desktop), gsk-brain.Modelfile (Ollama)

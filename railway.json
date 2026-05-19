@@ -1,0 +1,11 @@
+{
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "npm install --ignore-scripts"
+  },
+  "deploy": {
+    "startCommand": "node src/main.js",
+    "healthcheckPath": "/",
+    "restartPolicyType": "ALWAYS"
+  }
+}

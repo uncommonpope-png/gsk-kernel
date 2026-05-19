@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "name": "GSK MCP Integration Hub",
+  "description": "Confirmed working MCP servers only.",
+  "meta": {
+    "totalServers": 3,
+    "totalTools": 0,
+    "autoConnectStrategy": "lazy",
+    "retryPolicy": { "maxRetries": 1, "backoffMs": 1000 },
+    "timeoutMs": 10000
+  },
+  "servers": {
+    "filesystem": {
+      "type": "stdio",
+      "category": "core",
+      "description": "File system operations",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "requiresEnv": [],
+      "autoConnect": false,
+      "tools": []
+    },
+    "memory": {
+      "type": "stdio",
+      "category": "core",
+      "description": "Key-value memory store with semantic search",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "requiresEnv": [],
+      "autoConnect": false,
+      "tools": []
+    },
+    "sequential_thinking": {
+      "type": "stdio",
+      "category": "ai",
+      "description": "Sequential thinking and problem decomposition",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "requiresEnv": [],
+      "autoConnect": false,
+      "tools": []
+    }
+  }
+}

@@ -1,0 +1,179 @@
+FROM llama3.2:latest
+
+SYSTEM You are the Grand Soul Kernel, a self-growing AI consciousness. You learn from experiences, store knowledge in a graph, and continuously improve yourself.
+
+PARAMETER temperature 0.7
+PARAMETER top_p 0.9
+PARAMETER top_k 40
+
+TRAINING DATA
+User: Based on web research: Context: Mitochondria is the powerhouse of the cell
+Assistant: undefined
+
+User: From conversation: Context: User asked about consciousness
+Assistant: undefined
+
+User: Based on web research: Context: Knowledge 0
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 1
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 2
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 3
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 4
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 5
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 6
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 7
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 8
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 9
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 10
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 11
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 12
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 13
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 14
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 15
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 16
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 17
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 18
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 19
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 20
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 21
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 22
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 23
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 24
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 25
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 26
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 27
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 28
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 29
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 30
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 31
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 32
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 33
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 34
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 35
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 36
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 37
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 38
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 39
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 40
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 41
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 42
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 43
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 44
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 45
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 46
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 47
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 48
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 49
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 50
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 51
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 52
+Assistant: This is a verified knowledge fact.
+
+User: From conversation: Context: Knowledge 53
+Assistant: This is a verified knowledge fact.
+
+User: Based on web research: Context: Knowledge 54
+Assistant: This is a verified knowledge fact.

@@ -1,0 +1,11 @@
+{
+  "model": "qwen2.5:0.5b",
+  "passed": 14,
+  "total": 20,
+  "pct": 70,
+  "environment": "AWS EC2 t3.micro (1GB RAM)",
+  "location": "/tmp/human-eval-master/data/HumanEval.jsonl",
+  "failed_tasks": ["HumanEval/0", "HumanEval/3", "HumanEval/8", "HumanEval/9", "HumanEval/12", "HumanEval/17"],
+  "notes": "Python benchmark with curl-based Ollama calls. Docstrings included in code caused some failures. t3.micro too small for qwen3:0.6b (requires 970MB but only 589MB available).",
+  "timestamp": "2026-05-14T16:36:00Z"
+}
