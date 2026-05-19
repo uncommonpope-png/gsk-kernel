@@ -1,0 +1,8 @@
+﻿services:
+  - type: web_service
+    name: gsk-kernel
+    env: node
+    repo: https://github.com/uncommonpope-png/gsk-kernel
+    branch: main
+    buildCommand: npm install
+    startCommand: node src/main.js
