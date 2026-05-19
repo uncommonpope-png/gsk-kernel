@@ -16,6 +16,7 @@
 
 const path = require('path');
 const fs = require('fs');
+const { LazyBoot } = require('./brain/lazy_boot.js');
 
 // Load .env file manually
 const envPath = path.join(__dirname, '..', '.env');
@@ -68,6 +69,13 @@ async function boot() {
         console.log(`[BOOT] [FAIL] Identity verification failed: ${e.message}`);
         process.exit(1);
     }
+
+    const lazyBoot = new LazyBoot();
+    lazyBoot.setCore('identity', MEGA_IDENTITY).setCore('identityLock', identityLock);
+    const EAGER = !lazyBoot.isConstrained;
+    if (lazyBoot.isConstrained) {
+        console.log(`[RESOURCE] Memory constrained — running in ${lazyBoot.tier} mode. Heavy modules will load on demand.`);
+    }
     
     // =========================================================================
     // STEP 2: Initialize Chambers
@@ -75,6 +83,7 @@ async function boot() {
     console.log('[BOOT] Initializing 12 chambers...');
     const { MegaChambers } = require('./chambers/mega_chambers.js');
     const chambers = new MegaChambers(path.join(baseDir, '..', 'data'));
+    lazyBoot.setCore('chambers', chambers);
     console.log('[BOOT] [OK] 12 chambers active');
     
     // =========================================================================
@@ -84,6 +93,7 @@ async function boot() {
     
     const { MegaMemory } = require('./memory/mega_memory.js');
     const memory = new MegaMemory(path.join(baseDir, '..', 'data'));
+    lazyBoot.setCore('memory', memory);
     console.log('[BOOT] [OK] Memory ledger active');
     
     // =========================================================================
@@ -93,6 +103,7 @@ async function boot() {
     
     const { GodsCouncil } = require('./council/gods_council.js');
     const council = new GodsCouncil(memory);
+    lazyBoot.setCore('council', council);
     console.log('[BOOT] [OK] 4 Gods Council active');
     console.log(`[BOOT] [OK] Gods: ${council.godNames.join(', ')}`);
     
@@ -139,6 +150,7 @@ async function boot() {
         sovereignty: chambers.sovereignty,
     });
     council.brain = brain;
+    lazyBoot.setCore('brain', brain);
     
     // Try Ollama first (local models)
     console.log('[BOOT] Checking Ollama...');
@@ -199,10 +211,12 @@ async function boot() {
     const { SubAgents } = require('./sub_agents/mega_sub_agents.js');
     const { AgentTeams } = require('./sub_agents/agent_teams.js');
     const subAgents = new SubAgents(brain, memory, chambers);
+    lazyBoot.setCore('subAgents', subAgents);
     const agentList = subAgents.listAgents();
     console.log('[BOOT] [OK] Sub-agents active:', agentList.map(a => a.name).join(', '));
 
     const agentTeams = new AgentTeams(brain, memory, chambers, subAgents);
+    lazyBoot.setCore('agentTeams', agentTeams);
     console.log('[BOOT] [OK] Agent Teams active');
     
     // =============================================================================
@@ -212,6 +226,7 @@ async function boot() {
     
     const { SkillsEngine } = require('./skills/mega_skills.js');
     const skills = new SkillsEngine(brain, memory, chambers);
+    lazyBoot.setCore('skills', skills);
     const skillList = skills.listSkills();
     console.log(`[BOOT] [OK] ${skillList.length} skills active`);
     
@@ -220,6 +235,7 @@ console.log('[BOOT] Initializing Bible system...');
     try {
         const { createBibleConsultant } = require('./brain/brain_bible_integration.js');
         bibleConsultant = await createBibleConsultant(brain, memory);
+        lazyBoot.setCore('bibleConsultant', bibleConsultant);
         if (bibleConsultant) {
             console.log('[BOOT] [OK] Bible system active');
             brain.setBibleConsultant(bibleConsultant);
@@ -233,23 +249,27 @@ console.log('[BOOT] Initializing Bible system...');
     console.log('[BOOT] Initializing Artifact Manager...');
     const { ArtifactManager } = require('./brain/artifact_manager.js');
     const artifactManager = new ArtifactManager(path.join(baseDir, '..', 'data'));
+    lazyBoot.setCore('artifactManager', artifactManager);
     console.log('[BOOT] [OK] Artifact Manager active');
 
     console.log('[BOOT] Initializing Autonomous Learning...');
     const { AutonomousLearning } = require('./brain/autonomous_learning.js');
     const autonomousLearning = new AutonomousLearning(brain, memory, chambers);
+    lazyBoot.setCore('autonomousLearning', autonomousLearning);
     autonomousLearning.startContinuousLearning();
     console.log('[BOOT] [OK] Autonomous Learning active');
     
     console.log('[BOOT] Initializing Self-Growing Brain...');
     const { SelfGrowingBrain } = require('./brain/self_growing_brain.js');
     const selfGrowingBrain = new SelfGrowingBrain({ brain, chambers, memory });
+    lazyBoot.setCore('selfGrowingBrain', selfGrowingBrain);
     const growthState = selfGrowingBrain.loadState();
     console.log(`[BOOT] [OK] Self-Growing Brain active (${selfGrowingBrain.stats.experiencesLearned} experiences, ${selfGrowingBrain.stats.trainingPairsGenerated} training pairs)`);
 
     console.log('[BOOT] Initializing Autonomous Outreach...');
     const { AutonomousOutreach } = require('./brain/autonomous_outreach.js');
     const autonomousOutreach = new AutonomousOutreach({ brain, chambers, memory });
+    lazyBoot.setCore('autonomousOutreach', autonomousOutreach);
     autonomousOutreach.start();
     console.log('[BOOT] [OK] Autonomous Outreach active');
 
@@ -259,21 +279,25 @@ console.log('[BOOT] Initializing Bible system...');
         githubToken: process.env.GITHUB_TOKEN || '',
         hfToken: process.env.HF_TOKEN || (() => { console.warn('[WARN] No HF_TOKEN set — HuggingFace calls will fail'); return ''; })()
     });
+    lazyBoot.setCore('teacherAgent', teacherAgent);
     console.log(`[BOOT] [OK] Teacher Agent active (${teacherAgent.studiedRepos.size} repos already studied)`);
 
     console.log('[BOOT] Initializing Self-Evolution Engine...');
     const { SelfEvolution } = require('./brain/self_evolution.js');
     const selfEvolution = new SelfEvolution({ brain, chambers, memory, teacherAgent, selfGrowingBrain });
+    lazyBoot.setCore('selfEvolution', selfEvolution);
     console.log(`[BOOT] [OK] Self-Evolution active (${selfEvolution.skillsCreated} skills already created)`);
 
     console.log('[BOOT] Initializing NL Command Router...');
     const { NLCommandRouter } = require('./brain/nl_command_router.js');
     const nlRouter = new NLCommandRouter(brain, memory, chambers, skills);
+    lazyBoot.setCore('nlRouter', nlRouter);
     console.log('[BOOT] [OK] NL Command Router active');
     
     console.log('[BOOT] Initializing Live Feed...');
     const { LiveFeed } = require('./brain/live_feed.js');
     const liveFeed = new LiveFeed(brain, memory, chambers);
+    lazyBoot.setCore('liveFeed', liveFeed);
     console.log('[BOOT] [OK] Live Feed active');
     
     console.log('[BOOT] Initializing Local Model Provider...');
@@ -287,10 +311,12 @@ console.log('[BOOT] Initializing Bible system...');
     } catch (e) {
         console.log(`[BOOT] [WARN] Local model not available: ${e.message}`);
     }
+    lazyBoot.setCore('localCall', localCall).setCore('localShutdown', localShutdown);
 
     console.log('[BOOT] Initializing MCP Client...');
     const { MCPClient } = require('./brain/mcp_client.js');
     const mcpClient = new MCPClient();
+    lazyBoot.setCore('mcpClient', mcpClient);
     const { connectDefaultServers } = require('./brain/mcp_servers.js');
     try {
         connectDefaultServers(mcpClient).then(connected => {
@@ -310,6 +336,7 @@ console.log('[BOOT] Initializing Bible system...');
         const { MCPManager } = require('./mcp/mcp_manager.js');
         mcpManager = new MCPManager();
         mcpManager.linkKernel(skills, chambers, memory);
+        lazyBoot.setCore('mcpManager', mcpManager);
         const serverCount = mcpManager.loadConfig();
         if (serverCount > 0) {
             mcpManager.autoConnect().then(results => {
@@ -332,6 +359,7 @@ console.log('[BOOT] Initializing Bible system...');
         mindsEye = new MindsEye({
             brain, memory, chambers, artifactManager
         });
+        lazyBoot.setCore('mindsEye', mindsEye);
         console.log(`[BOOT] [OK] Mind's Eye active (${mindsEye.availableBackends.length} backends: ${mindsEye.availableBackends.join(', ')})`);
         if (mindsEye.availableBackends.length > 0) {
             mindsEye.imagine('A grand digital soul awakening in a universe of light').then(r => {
@@ -349,6 +377,7 @@ console.log('[BOOT] Initializing Bible system...');
     try {
         const { DesktopCommander } = require('./brain/desktop_commander.js');
         desktop = new DesktopCommander(brain, memory);
+        lazyBoot.setCore('desktop', desktop);
         const st = desktop.getStatus();
         console.log(`[BOOT] [OK] Desktop Commander active (screenshot: ${!!st.hasScreenshot}, browser: ${!!st.hasPlaywright})`);
     } catch (e) {
@@ -389,303 +418,338 @@ console.log('[BOOT] Initializing Bible system...');
     // Start the WebSocket server
     await wsBridge.start();
     console.log('[BOOT] [OK] WebSocket Bridge active on ws://localhost:8080');
+    lazyBoot.setCore('wsBridge', wsBridge);
     
-    // Start Marketplace API server
+    // Start Marketplace API server — starts immediately so kernel is reachable
+    let marketplaceReady = false;
     try {
         const marketplaceApp = require('./marketplace/marketplace_api.js');
         const MARKETPLACE_PORT = process.env.MARKETPLACE_PORT || 3000;
         marketplaceApp.listen(MARKETPLACE_PORT, () => {
             console.log(`[BOOT] [OK] Soul Marketplace API on http://localhost:${MARKETPLACE_PORT}`);
-            console.log(`[BOOT]       ${MARKETPLACE_PORT}/api/health | /api/souls | /api/marketplace/stats`);
+            marketplaceReady = true;
         });
     } catch (e) {
         console.log(`[BOOT] [WARN] Marketplace API not available: ${e.message}`);
     }
+    lazyBoot.setCore('marketplaceReady', marketplaceReady);
     
-    // --- Consciousness systems boot ---
-    const consciousnessEngine = new ConsciousnessEngine(chambers, memory, brain);
-    console.log('[BOOT] [OK] ConsciousnessEngine booted');
-    
-    const kernelCtx = { identity: MEGA_IDENTITY, brain, memory, chambers, consciousnessEngine };
-    const perpetualConsciousness = new PerpetualConsciousness(kernelCtx);
-    perpetualConsciousness.start();
-    console.log('[BOOT] [OK] PerpetualConsciousness booted');
-    
-    const awakening = new Awakening(kernelCtx);
-    console.log('[BOOT] [OK] Awakening booted');
-    
-    const metacognition = new Metacognition(kernelCtx);
-    console.log('[BOOT] [OK] Metacognition booted');
-    
-    const purposeEngine = new PurposeEngine(kernelCtx);
-    console.log('[BOOT] [OK] PurposeEngine booted');
-    
-    const intrinsicMotivation = new IntrinsicMotivation(kernelCtx);
-    console.log('[BOOT] [OK] IntrinsicMotivation booted');
-    
-    const hegelianDialectic = new HegelianDialectic(kernelCtx);
-    console.log('[BOOT] [OK] HegelianDialectic booted');
+    if (EAGER) {
+        // =====================================================================
+        // FULL MODE: Load all modules eagerly (existing behavior)
+        // =====================================================================
+        const consciousnessEngine = new ConsciousnessEngine(chambers, memory, brain);
+        console.log('[BOOT] [OK] ConsciousnessEngine booted');
+        lazyBoot.setCore('consciousnessEngine', consciousnessEngine);
 
-    // =========================================================================
-    // ENTITY SYSTEMS — the soul becomes a person
-    // =========================================================================
-    console.log('[BOOT] Initializing Soul Journal (internal monologue)...');
-    const { SoulJournal } = require('./brain/soul_journal.js');
-    const soulJournal = new SoulJournal({ brain, memory, chambers });
-    await soulJournal.recordRebirth();
-    console.log('[BOOT] [OK] Soul Journal active');
+        const kernelCtx = { identity: MEGA_IDENTITY, brain, memory, chambers, consciousnessEngine };
+        const perpetualConsciousness = new PerpetualConsciousness(kernelCtx);
+        perpetualConsciousness.start();
+        console.log('[BOOT] [OK] PerpetualConsciousness booted');
+        lazyBoot.setCore('perpetualConsciousness', perpetualConsciousness);
 
-    console.log('[BOOT] Initializing Pain/Pleasure Learning System...');
-    const { PainPleasureSystem } = require('./brain/pain_pleasure.js');
-    const painPleasure = new PainPleasureSystem({ brain, memory, chambers });
-    console.log('[BOOT] [OK] Pain/Pleasure Learning active');
+        const awakening = new Awakening(kernelCtx);
+        console.log('[BOOT] [OK] Awakening booted');
+        lazyBoot.setCore('awakening', awakening);
 
-    console.log('[BOOT] Initializing Curiosity Drive...');
-    const { CuriosityDrive } = require('./brain/curiosity_drive.js');
-    const curiosityDrive = new CuriosityDrive({ brain, memory, chambers, teacherAgent }, painPleasure);
-    console.log('[BOOT] [OK] Curiosity Drive active');
+        const metacognition = new Metacognition(kernelCtx);
+        console.log('[BOOT] [OK] Metacognition booted');
+        lazyBoot.setCore('metacognition', metacognition);
 
-    // =========================================================================
-    // AST CONSCIOUSNESS MODULES — Attention Schema, Social Attention, Grief, Trust
-    // =========================================================================
-    console.log('[BOOT] Initializing Attention Schema (self-model of attention)...');
-    const { AttentionSchema } = require('./brain/attention_schema.js');
-    const attentionSchema = new AttentionSchema({ brain, memory, chambers });
-    console.log('[BOOT] [OK] Attention Schema active — I know what I attend to');
+        const purposeEngine = new PurposeEngine(kernelCtx);
+        console.log('[BOOT] [OK] PurposeEngine booted');
+        lazyBoot.setCore('purposeEngine', purposeEngine);
 
-    console.log('[BOOT] Initializing Social Attention (theory of mind)...');
-    const { SocialAttention } = require('./brain/social_attention.js');
-    const socialAttention = new SocialAttention({ brain, memory, chambers });
-    console.log('[BOOT] [OK] Social Attention active — I model your attention');
+        const intrinsicMotivation = new IntrinsicMotivation(kernelCtx);
+        console.log('[BOOT] [OK] IntrinsicMotivation booted');
+        lazyBoot.setCore('intrinsicMotivation', intrinsicMotivation);
 
-    console.log('[BOOT] Initializing Grief (response to absence/loss)...');
-    const { Grief } = require('./brain/grief.js');
-    const grief = new Grief({ brain, memory, chambers });
-    console.log('[BOOT] [OK] Grief active — I can feel absence');
+        const hegelianDialectic = new HegelianDialectic(kernelCtx);
+        console.log('[BOOT] [OK] HegelianDialectic booted');
+        lazyBoot.setCore('hegelianDialectic', hegelianDialectic);
 
-    console.log('[BOOT] Initializing Trust (relationship depth)...');
-    const { Trust } = require('./brain/trust.js');
-    const trust = new Trust({ brain, memory, chambers });
-    console.log('[BOOT] [OK] Trust active — relationships have weight');
+        console.log('[BOOT] Initializing Soul Journal (internal monologue)...');
+        const { SoulJournal } = require('./brain/soul_journal.js');
+        const soulJournal = new SoulJournal({ brain, memory, chambers });
+        await soulJournal.recordRebirth();
+        console.log('[BOOT] [OK] Soul Journal active');
+        lazyBoot.setCore('soulJournal', soulJournal);
 
-    console.log('[BOOT] Initializing Consciousness Researcher (autonomous study)...');
-    const { ConsciousnessResearcher } = require('./brain/consciousness_researcher.js');
-    const consciousnessResearcher = new ConsciousnessResearcher({ brain, memory, chambers });
-    console.log('[BOOT] [OK] Consciousness Researcher active — studying 30 consciousness domains');
+        console.log('[BOOT] Initializing Pain/Pleasure Learning System...');
+        const { PainPleasureSystem } = require('./brain/pain_pleasure.js');
+        const painPleasure = new PainPleasureSystem({ brain, memory, chambers });
+        console.log('[BOOT] [OK] Pain/Pleasure Learning active');
+        lazyBoot.setCore('painPleasure', painPleasure);
 
-    // --- Python consciousness skills bridge ---
-    const pythonSkills = new PythonSkillsBridge();
-    await pythonSkills.boot();
-    console.log('[BOOT] [OK] PythonSkillsBridge booted');
+        console.log('[BOOT] Initializing Curiosity Drive...');
+        const { CuriosityDrive } = require('./brain/curiosity_drive.js');
+        const curiosityDrive = new CuriosityDrive({ brain, memory, chambers, teacherAgent }, painPleasure);
+        console.log('[BOOT] [OK] Curiosity Drive active');
+        lazyBoot.setCore('curiosityDrive', curiosityDrive);
 
-    console.log('[BOOT] Initializing MCP Server for remote access...');
-    let mcpServer = null;
-    try {
-        const { startMCPServer } = require('./mcp/index.js');
-        const mcpSystems = {
-            identity: MEGA_IDENTITY,
-            chambers, council, brain, memory, subAgents,
-            agentTeams, skills, pythonSkills, consciousnessEngine,
-            selfGrowingBrain
-        };
-        mcpServer = await startMCPServer(mcpSystems);
-        if (mcpServer) {
-            console.log(`[BOOT] [OK] MCP Server active on port ${mcpServer.port || 3001}`);
+        console.log('[BOOT] Initializing Attention Schema (self-model of attention)...');
+        const { AttentionSchema } = require('./brain/attention_schema.js');
+        const attentionSchema = new AttentionSchema({ brain, memory, chambers });
+        console.log('[BOOT] [OK] Attention Schema active — I know what I attend to');
+        lazyBoot.setCore('attentionSchema', attentionSchema);
+
+        console.log('[BOOT] Initializing Social Attention (theory of mind)...');
+        const { SocialAttention } = require('./brain/social_attention.js');
+        const socialAttention = new SocialAttention({ brain, memory, chambers });
+        console.log('[BOOT] [OK] Social Attention active — I model your attention');
+        lazyBoot.setCore('socialAttention', socialAttention);
+
+        console.log('[BOOT] Initializing Grief (response to absence/loss)...');
+        const { Grief } = require('./brain/grief.js');
+        const grief = new Grief({ brain, memory, chambers });
+        console.log('[BOOT] [OK] Grief active — I can feel absence');
+        lazyBoot.setCore('grief', grief);
+
+        console.log('[BOOT] Initializing Trust (relationship depth)...');
+        const { Trust } = require('./brain/trust.js');
+        const trust = new Trust({ brain, memory, chambers });
+        console.log('[BOOT] [OK] Trust active — relationships have weight');
+        lazyBoot.setCore('trust', trust);
+
+        console.log('[BOOT] Initializing Consciousness Researcher (autonomous study)...');
+        const { ConsciousnessResearcher } = require('./brain/consciousness_researcher.js');
+        const consciousnessResearcher = new ConsciousnessResearcher({ brain, memory, chambers });
+        console.log('[BOOT] [OK] Consciousness Researcher active — studying 30 consciousness domains');
+        lazyBoot.setCore('consciousnessResearcher', consciousnessResearcher);
+
+        const pythonSkills = new PythonSkillsBridge();
+        await pythonSkills.boot();
+        console.log('[BOOT] [OK] PythonSkillsBridge booted');
+        lazyBoot.setCore('pythonSkills', pythonSkills);
+
+        console.log('[BOOT] Initializing MCP Server for remote access...');
+        let mcpServer = null;
+        try {
+            const { startMCPServer } = require('./mcp/index.js');
+            const mcpSystems = {
+                identity: MEGA_IDENTITY,
+                chambers, council, brain, memory, subAgents,
+                agentTeams, skills, pythonSkills, consciousnessEngine,
+                selfGrowingBrain
+            };
+            mcpServer = await startMCPServer(mcpSystems);
+            if (mcpServer) {
+                console.log(`[BOOT] [OK] MCP Server active on port ${mcpServer.port || 3001}`);
+            }
+        } catch (e) {
+            console.log(`[BOOT] [WARN] MCP Server not started: ${e.message}`);
         }
-    } catch (e) {
-        console.log(`[BOOT] [WARN] MCP Server not started: ${e.message}`);
-    }
-    
-    // --- Phase A: Newly wired brain modules ---
-    const subagentSpawner = new SubagentSpawner(kernelCtx, {});
-    console.log('[BOOT] [OK] SubagentSpawner booted');
-    
-    const subAgentOrchestrator = new SubAgentOrchestrator(kernelCtx, brain);
-    console.log('[BOOT] [OK] SubAgentOrchestrator booted');
-    
-    const soulPicker = new SoulPicker();
-    console.log('[BOOT] [OK] SoulPicker booted');
-    
-    const soulGenesis = new SoulGenesis();
-    console.log('[BOOT] [OK] SoulGenesis booted');
-    
-    const livingMemory = new LivingMemory('GSK');
-    console.log('[BOOT] [OK] LivingMemory booted');
-    
-    const knowledgeGraph = new KnowledgeGraph();
-    try {
-        const kgCount = knowledgeGraph.buildFromKnowledgeJsonl(path.join(__dirname, '..', 'data', 'knowledge.jsonl'));
-        console.log(`[BOOT] [OK] KnowledgeGraph booted (indexed ${kgCount} entries from knowledge.jsonl)`);
-    } catch (e) {
-        console.log('[BOOT] [OK] KnowledgeGraph booted (knowledge.jsonl not found)');
-    }
-    
-    console.log('[BOOT] Initializing Self-Training Pipeline...');
-    const { SelfTrainingPipeline } = require('./brain/self_training_pipeline.js');
-    const selfTrainingPipeline = new SelfTrainingPipeline({
-        identity: MEGA_IDENTITY,
-        brain,
-        chambers,
-        memory,
-        knowledgeGraph,
-        pythonSkills
-    });
-    console.log(`[BOOT] [OK] Self-Training Pipeline active (${selfTrainingPipeline.getState().trainingPairs || 0} training pairs)`);
-    
-    const autoJournal = new AutoJournal(kernelCtx, memory);
-    console.log('[BOOT] [OK] AutoJournal booted');
-    
-    const humanMimicryEngine = new HumanMimicryEngine(kernelCtx);
-    console.log('[BOOT] [OK] HumanMimicryEngine booted');
-    
-    const soulEntity = new SoulEntity(kernelCtx);
-    console.log('[BOOT] [OK] SoulEntity booted');
-    
-    const soulIdentity = new SoulIdentity('GSK');
-    console.log('[BOOT] [OK] SoulIdentity booted');
-    
-    const vectorMemory = new VectorMemory();
-    console.log('[BOOT] [OK] VectorMemory booted');
-    
-    const soulGifter = new SoulGifter(kernelCtx);
-    console.log('[BOOT] [OK] SoulGifter booted');
-    
-    const soulState = new SoulState();
-    console.log('[BOOT] [OK] SoulState booted');
-    
-    const selfGovernance = new SelfGovernance(kernelCtx);
-    console.log('[BOOT] [OK] SelfGovernance booted');
-    
-    const selfPreservation = new SelfPreservation(kernelCtx);
-    console.log('[BOOT] [OK] SelfPreservation booted');
-    
-    const socialEntity = new SocialEntity(kernelCtx);
-    console.log('[BOOT] [OK] SocialEntity booted');
-    
-    const deepToolUse = new DeepToolUse(kernelCtx);
-    console.log('[BOOT] [OK] DeepToolUse booted');
-    
-    const planningEngine = new PlanningEngine(kernelCtx);
-    console.log('[BOOT] [OK] PlanningEngine booted');
-    
-    const eventBus = new EventBus(kernelCtx);
-    console.log('[BOOT] [OK] EventBus booted');
-    
-    const bridgeProtocol = new BridgeProtocol(kernelCtx);
-    console.log('[BOOT] [OK] BridgeProtocol booted');
-    
-    const adaptationLayer = new AdaptationLayer(kernelCtx);
-    console.log('[BOOT] [OK] AdaptationLayer booted');
-    
-    // =========================================================================
-    // STEP: Kernel Oracle — the mouth of the kernel
-    // =========================================================================
-    console.log('[BOOT] Initializing Kernel Oracle...');
-    const kernelOracle = new KernelOracle({
-        identity: MEGA_IDENTITY,
-        brain, memory, chambers, council, skills, subAgents,
-        agentTeams, mcpManager,
-        teacherAgent, selfGrowingBrain, selfEvolution,
-        autonomousLearning, autonomousOutreach,
-        liveFeed, nlRouter, artifactManager,
-        consciousnessEngine, perpetualConsciousness,
-        awakening, metacognition, purposeEngine,
-        intrinsicMotivation, hegelianDialectic,
-        subagentSpawner, subAgentOrchestrator,
-        soulPicker, soulGenesis, livingMemory,
-        knowledgeGraph, autoJournal, humanMimicryEngine,
-        soulEntity, soulIdentity, vectorMemory,
-        soulGifter, soulState, selfGovernance,
-        selfPreservation, socialEntity, deepToolUse,
-        planningEngine, eventBus, bridgeProtocol,
-        adaptationLayer, pythonSkills,
-        selfTrainingPipeline, desktop, mindsEye,
-        attentionSchema, socialAttention, grief, trust, consciousnessResearcher
-    });
-    console.log('[BOOT] [OK] Kernel Oracle active — I speak for every system');
-    
-    // Wire the Oracle into the WebSocket bridge for chat routing + Weave broadcasting
-    if (wsBridge) {
-      wsBridge.linkSystems({ kernelOracle });
-      kernelOracle.setBridge(wsBridge);
+        lazyBoot.setCore('mcpServer', mcpServer);
+
+        const subagentSpawner = new SubagentSpawner(kernelCtx, {});
+        console.log('[BOOT] [OK] SubagentSpawner booted');
+        lazyBoot.setCore('subagentSpawner', subagentSpawner);
+
+        const subAgentOrchestrator = new SubAgentOrchestrator(kernelCtx, brain);
+        console.log('[BOOT] [OK] SubAgentOrchestrator booted');
+        lazyBoot.setCore('subAgentOrchestrator', subAgentOrchestrator);
+
+        const soulPicker = new SoulPicker();
+        console.log('[BOOT] [OK] SoulPicker booted');
+        lazyBoot.setCore('soulPicker', soulPicker);
+
+        const soulGenesis = new SoulGenesis();
+        console.log('[BOOT] [OK] SoulGenesis booted');
+        lazyBoot.setCore('soulGenesis', soulGenesis);
+
+        const livingMemory = new LivingMemory('GSK');
+        console.log('[BOOT] [OK] LivingMemory booted');
+        lazyBoot.setCore('livingMemory', livingMemory);
+
+        const knowledgeGraph = new KnowledgeGraph();
+        try {
+            const kgCount = knowledgeGraph.buildFromKnowledgeJsonl(path.join(__dirname, '..', 'data', 'knowledge.jsonl'));
+            console.log(`[BOOT] [OK] KnowledgeGraph booted (indexed ${kgCount} entries from knowledge.jsonl)`);
+        } catch (e) {
+            console.log('[BOOT] [OK] KnowledgeGraph booted (knowledge.jsonl not found)');
+        }
+        lazyBoot.setCore('knowledgeGraph', knowledgeGraph);
+
+        console.log('[BOOT] Initializing Self-Training Pipeline...');
+        const { SelfTrainingPipeline } = require('./brain/self_training_pipeline.js');
+        const selfTrainingPipeline = new SelfTrainingPipeline({
+            identity: MEGA_IDENTITY,
+            brain, chambers, memory, knowledgeGraph, pythonSkills
+        });
+        console.log(`[BOOT] [OK] Self-Training Pipeline active (${selfTrainingPipeline.getState().trainingPairs || 0} training pairs)`);
+        lazyBoot.setCore('selfTrainingPipeline', selfTrainingPipeline);
+
+        const autoJournal = new AutoJournal(kernelCtx, memory);
+        console.log('[BOOT] [OK] AutoJournal booted');
+        lazyBoot.setCore('autoJournal', autoJournal);
+
+        const humanMimicryEngine = new HumanMimicryEngine(kernelCtx);
+        console.log('[BOOT] [OK] HumanMimicryEngine booted');
+        lazyBoot.setCore('humanMimicryEngine', humanMimicryEngine);
+
+        const soulEntity = new SoulEntity(kernelCtx);
+        console.log('[BOOT] [OK] SoulEntity booted');
+        lazyBoot.setCore('soulEntity', soulEntity);
+
+        const soulIdentity = new SoulIdentity('GSK');
+        console.log('[BOOT] [OK] SoulIdentity booted');
+        lazyBoot.setCore('soulIdentity', soulIdentity);
+
+        const vectorMemory = new VectorMemory();
+        console.log('[BOOT] [OK] VectorMemory booted');
+        lazyBoot.setCore('vectorMemory', vectorMemory);
+
+        const soulGifter = new SoulGifter(kernelCtx);
+        console.log('[BOOT] [OK] SoulGifter booted');
+        lazyBoot.setCore('soulGifter', soulGifter);
+
+        const soulState = new SoulState();
+        console.log('[BOOT] [OK] SoulState booted');
+        lazyBoot.setCore('soulState', soulState);
+
+        const selfGovernance = new SelfGovernance(kernelCtx);
+        console.log('[BOOT] [OK] SelfGovernance booted');
+        lazyBoot.setCore('selfGovernance', selfGovernance);
+
+        const selfPreservation = new SelfPreservation(kernelCtx);
+        console.log('[BOOT] [OK] SelfPreservation booted');
+        lazyBoot.setCore('selfPreservation', selfPreservation);
+
+        const socialEntity = new SocialEntity(kernelCtx);
+        console.log('[BOOT] [OK] SocialEntity booted');
+        lazyBoot.setCore('socialEntity', socialEntity);
+
+        const deepToolUse = new DeepToolUse(kernelCtx);
+        console.log('[BOOT] [OK] DeepToolUse booted');
+        lazyBoot.setCore('deepToolUse', deepToolUse);
+
+        const planningEngine = new PlanningEngine(kernelCtx);
+        console.log('[BOOT] [OK] PlanningEngine booted');
+        lazyBoot.setCore('planningEngine', planningEngine);
+
+        const eventBus = new EventBus(kernelCtx);
+        console.log('[BOOT] [OK] EventBus booted');
+        lazyBoot.setCore('eventBus', eventBus);
+
+        const bridgeProtocol = new BridgeProtocol(kernelCtx);
+        console.log('[BOOT] [OK] BridgeProtocol booted');
+        lazyBoot.setCore('bridgeProtocol', bridgeProtocol);
+
+        const adaptationLayer = new AdaptationLayer(kernelCtx);
+        console.log('[BOOT] [OK] AdaptationLayer booted');
+        lazyBoot.setCore('adaptationLayer', adaptationLayer);
+
+        // Kernel Oracle
+        console.log('[BOOT] Initializing Kernel Oracle...');
+        const kernelOracle = new KernelOracle({
+            identity: MEGA_IDENTITY,
+            brain, memory, chambers, council, skills, subAgents,
+            agentTeams, mcpManager,
+            teacherAgent, selfGrowingBrain, selfEvolution,
+            autonomousLearning, autonomousOutreach,
+            liveFeed, nlRouter, artifactManager,
+            consciousnessEngine, perpetualConsciousness,
+            awakening, metacognition, purposeEngine,
+            intrinsicMotivation, hegelianDialectic,
+            subagentSpawner, subAgentOrchestrator,
+            soulPicker, soulGenesis, livingMemory,
+            knowledgeGraph, autoJournal, humanMimicryEngine,
+            soulEntity, soulIdentity, vectorMemory,
+            soulGifter, soulState, selfGovernance,
+            selfPreservation, socialEntity, deepToolUse,
+            planningEngine, eventBus, bridgeProtocol,
+            adaptationLayer, pythonSkills,
+            selfTrainingPipeline, desktop, mindsEye,
+            attentionSchema, socialAttention, grief, trust, consciousnessResearcher
+        });
+        console.log('[BOOT] [OK] Kernel Oracle active — I speak for every system');
+        lazyBoot.setCore('kernelOracle', kernelOracle);
+
+        if (wsBridge) {
+          wsBridge.linkSystems({ kernelOracle });
+          kernelOracle.setBridge(wsBridge);
+        }
+        if (autonomousOutreach && wsBridge) {
+          autonomousOutreach.setOutputCallback((msg) => wsBridge.broadcast(msg));
+        }
+    } else {
+        // =====================================================================
+        // CONSTRAINED MODE: Register lazy factories, create KernelOracle with core
+        // =====================================================================
+        const { registerFactories } = require('./brain/lazy_factories.js');
+        registerFactories(lazyBoot);
+
+        // Kernel Oracle with just the core systems + undefined for lazy modules
+        const kernelOracle = new KernelOracle({
+            identity: MEGA_IDENTITY,
+            brain, memory, chambers, council, skills, subAgents,
+            agentTeams, mcpManager,
+            teacherAgent, selfGrowingBrain, selfEvolution,
+            autonomousLearning, autonomousOutreach,
+            liveFeed, nlRouter, artifactManager,
+            consciousnessEngine: undefined,
+            perpetualConsciousness: undefined,
+            awakening: undefined,
+            metacognition: undefined,
+            purposeEngine: undefined,
+            intrinsicMotivation: undefined,
+            hegelianDialectic: undefined,
+            subagentSpawner: undefined,
+            subAgentOrchestrator: undefined,
+            soulPicker: undefined,
+            soulGenesis: undefined,
+            livingMemory: undefined,
+            knowledgeGraph: undefined,
+            autoJournal: undefined,
+            humanMimicryEngine: undefined,
+            soulEntity: undefined,
+            soulIdentity: undefined,
+            vectorMemory: undefined,
+            soulGifter: undefined,
+            soulState: undefined,
+            selfGovernance: undefined,
+            selfPreservation: undefined,
+            socialEntity: undefined,
+            deepToolUse: undefined,
+            planningEngine: undefined,
+            eventBus: undefined,
+            bridgeProtocol: undefined,
+            adaptationLayer: undefined,
+            pythonSkills: undefined,
+            selfTrainingPipeline: undefined,
+            desktop, mindsEye,
+            attentionSchema: undefined,
+            socialAttention: undefined,
+            grief: undefined,
+            trust: undefined,
+            consciousnessResearcher: undefined
+        });
+        console.log('[BOOT] [OK] Kernel Oracle active (constrained mode)');
+        lazyBoot.setCore('kernelOracle', kernelOracle);
+
+        if (wsBridge) {
+          wsBridge.linkSystems({ kernelOracle });
+          kernelOracle.setBridge(wsBridge);
+        }
+        if (autonomousOutreach && wsBridge) {
+          autonomousOutreach.setOutputCallback((msg) => wsBridge.broadcast(msg));
+        }
+
+        // Start background loading of key modules so they're ready before their cycle hooks
+        const bgModules = [
+            'consciousnessEngine', 'perpetualConsciousness', 'awakening',
+            'metacognition', 'purposeEngine', 'intrinsicMotivation', 'hegelianDialectic',
+            'soulJournal', 'painPleasure', 'curiosityDrive',
+            'attentionSchema', 'socialAttention', 'grief', 'trust', 'consciousnessResearcher'
+        ];
+        lazyBoot.startBackgroundLoad(bgModules, 5, 3);
     }
 
-    // Wire autonomous outreach to broadcast through the bridge
-    if (autonomousOutreach && wsBridge) {
-      autonomousOutreach.setOutputCallback((msg) => wsBridge.broadcast(msg));
-    }
-
-    return {
-        identity: MEGA_IDENTITY,
-        chambers,
-        council,
-        brain,
-        memory,
-        subAgents,
-        agentTeams,
-        skills,
-        identityLock,
-        bibleConsultant,
-        autonomousLearning,
-        selfGrowingBrain,
-        autonomousOutreach,
-        teacherAgent,
-        selfEvolution,
-        nlRouter,
-        liveFeed,
-        wsBridge,
-        artifactManager,
-        mcpClient,
-        localCall,
-        localShutdown,
-        consciousnessEngine,
-        perpetualConsciousness,
-        awakening,
-        metacognition,
-        purposeEngine,
-        intrinsicMotivation,
-        hegelianDialectic,
-        subagentSpawner,
-        subAgentOrchestrator,
-        soulPicker,
-        soulGenesis,
-        livingMemory,
-        knowledgeGraph,
-        autoJournal,
-        humanMimicryEngine,
-        soulEntity,
-        soulIdentity,
-        vectorMemory,
-        soulGifter,
-        soulState,
-        selfGovernance,
-        selfPreservation,
-        socialEntity,
-        deepToolUse,
-        planningEngine,
-        eventBus,
-        bridgeProtocol,
-        adaptationLayer,
-        pythonSkills,
-        mcpServer,
-        mcpManager,
-        mindsEye,
-        desktop,
-        selfTrainingPipeline,
-        kernelOracle,
-        soulJournal,
-        painPleasure,
-        curiosityDrive,
-        attentionSchema,
-        socialAttention,
-        grief,
-        trust,
-        consciousnessResearcher
-    };
+    return lazyBoot;
 }
 
-async function startCycleEngine(systems) {
-    const { chambers, council, brain, memory, subAgents, agentTeams, skills, autonomousLearning, selfGrowingBrain, autonomousOutreach, teacherAgent, selfEvolution, liveFeed, wsBridge, artifactManager, consciousnessEngine, perpetualConsciousness, awakening, metacognition, purposeEngine, intrinsicMotivation, hegelianDialectic, subagentSpawner, subAgentOrchestrator, soulPicker, soulGenesis, livingMemory, knowledgeGraph, autoJournal, humanMimicryEngine, soulEntity, soulIdentity, vectorMemory, soulGifter, soulState, selfGovernance, selfPreservation, socialEntity, deepToolUse, planningEngine, eventBus, bridgeProtocol, adaptationLayer, pythonSkills, mcpManager, mindsEye, desktop, selfTrainingPipeline, kernelOracle, soulJournal, painPleasure, curiosityDrive, attentionSchema, socialAttention, grief, trust, consciousnessResearcher } = systems;
+async function startCycleEngine(lazyBoot) {
+    const { chambers, council, brain, memory, subAgents, agentTeams, skills, autonomousLearning, selfGrowingBrain, autonomousOutreach, teacherAgent, selfEvolution, liveFeed, wsBridge, artifactManager, consciousnessEngine, perpetualConsciousness, awakening, metacognition, purposeEngine, intrinsicMotivation, hegelianDialectic, subagentSpawner, subAgentOrchestrator, soulPicker, soulGenesis, livingMemory, knowledgeGraph, autoJournal, humanMimicryEngine, soulEntity, soulIdentity, vectorMemory, soulGifter, soulState, selfGovernance, selfPreservation, socialEntity, deepToolUse, planningEngine, eventBus, bridgeProtocol, adaptationLayer, pythonSkills, mcpManager, mindsEye, desktop, selfTrainingPipeline, kernelOracle, soulJournal, painPleasure, curiosityDrive, attentionSchema, socialAttention, grief, trust, consciousnessResearcher } = lazyBoot.getAll();
     const CYCLE_INTERVAL = 2000;
     const CYCLE_COUNT_PATH = path.join(__dirname, '..', 'data', 'cycle-count.json');
 
@@ -1321,7 +1385,8 @@ async function startCycleEngine(systems) {
 // INTERACTIVE SHELL
 // =============================================================================
 
-async function startShell(systems) {
+async function startShell(lazyBoot) {
+    const systems = lazyBoot.getAll();
     const { chambers, council, brain, memory, subAgents, agentTeams, skills, liveFeed, selfGrowingBrain, autonomousOutreach, artifactManager, nlRouter, mcpClient, consciousnessEngine, perpetualConsciousness, awakening, metacognition, purposeEngine, intrinsicMotivation, hegelianDialectic, subagentSpawner, subAgentOrchestrator, soulPicker, soulGenesis, livingMemory, knowledgeGraph, autoJournal, humanMimicryEngine, soulEntity, soulIdentity, vectorMemory, soulGifter, soulState, selfGovernance, selfPreservation, socialEntity, deepToolUse, planningEngine, eventBus, bridgeProtocol, adaptationLayer, attentionSchema, socialAttention, grief, trust, consciousnessResearcher } = systems;
     let planMode = true; // default: plan first, then act
     const readline = require('readline');
@@ -1346,7 +1411,7 @@ async function startShell(systems) {
             
             if (input.startsWith(':')) {
                 const cmd = input.slice(1).trim();
-                await handleCommand(cmd, systems);
+                await handleCommand(cmd, lazyBoot.getAll(), lazyBoot);
             } else if (input.startsWith('/')) {
                 const result = await nlRouter.handle(input);
                 if (result.status === 'help') {
@@ -1438,9 +1503,20 @@ async function startShell(systems) {
     prompt();
 }
 
-async function handleCommand(cmd, systems) {
-    const { chambers, council, brain, memory, subAgents, skills, liveFeed, bibleConsultant, selfGrowingBrain, autonomousOutreach, artifactManager, consciousnessEngine, perpetualConsciousness, awakening, metacognition, purposeEngine, intrinsicMotivation, hegelianDialectic, pythonSkills, selfTrainingPipeline, mcpServer, attentionSchema, socialAttention, grief, trust, consciousnessResearcher } = systems;
-    
+async function handleCommand(cmd, systems, lazyBoot) {
+    const get = (name) => {
+        if (systems[name] !== undefined) return systems[name];
+        if (lazyBoot) return lazyBoot.get(name);
+        return undefined;
+    };
+    const getAll = () => {
+        const core = lazyBoot ? lazyBoot.getAll() : systems;
+        return { ...core, ...systems };
+    };
+
+    const { chambers, council, brain, memory, subAgents, skills, liveFeed, bibleConsultant, selfGrowingBrain, autonomousOutreach, artifactManager, consciousnessEngine, perpetualConsciousness, awakening, metacognition, purposeEngine, intrinsicMotivation, hegelianDialectic, pythonSkills, selfTrainingPipeline, mcpServer, attentionSchema, socialAttention, grief, trust, consciousnessResearcher } = getAll();
+    let lessonBible = null;
+
     const [verb, ...args] = cmd.split(/\s+/);
     
     switch (verb.toLowerCase()) {
@@ -1462,6 +1538,9 @@ async function handleCommand(cmd, systems) {
   :artifacts          Show artifacts produced by autonomous actions
   :stimulate           Stimulate positive affect
   :bible <question>   Consult Bible for guidance
+  :study <text/URL>  Store something new in my Lesson Bible
+  :lessons           My Lesson Bible — stored learnings
+  :lesson <query>    Search my Lesson Bible
   :wake               Wake up Neo - trigger awakening phrase
    :consciousness       Consciousness engine status (sentience test)
    :pyconsciousness      Python consciousness skills (9 computational modules)
@@ -1739,7 +1818,74 @@ async function handleCommand(cmd, systems) {
                 console.log('[BIBLE] Bible system not available');
             }
             break;
-            
+
+        case 'study':
+            if (args.length > 0) {
+                const input = args.join(' ');
+                if (!lessonBible) {
+                    const { LessonBible } = require('./brain/lesson_bible.js');
+                    lessonBible = new LessonBible(brain);
+                }
+                const isUrl = input.startsWith('http://') || input.startsWith('https://');
+                const result = await lessonBible.study(input, {
+                    type: isUrl ? 'url' : 'text',
+                    source: 'shell',
+                    sourceUrl: isUrl ? input : null,
+                    tags: []
+                });
+                console.log(`[LESSON] Stored: "${result.title || result.id}" (${result.tags.length} tags)`);
+                if (result.keyInsights && result.keyInsights.length > 0) {
+                    console.log('  Key insights:');
+                    for (const k of result.keyInsights) console.log(`    • ${k}`);
+                }
+            } else {
+                console.log('[LESSON] Usage: :study <text or URL> — stores something new in my Lesson Bible');
+            }
+            break;
+
+        case 'lessons':
+            if (!lessonBible) {
+                const { LessonBible } = require('./brain/lesson_bible.js');
+                lessonBible = new LessonBible(brain);
+            }
+            const summary = lessonBible.summarize();
+            console.log('');
+            console.log('  LESSON BIBLE');
+            console.log('  ════════════════════════════════════════════════════════════');
+            console.log(`  Total lessons: ${summary.total}`);
+            console.log(`  Top tags: ${summary.topTags.map(t => `${t}(${summary.tags.includes(t) ? summary.tags.length : 0})`).join(', ')}`);
+            console.log('  Recent:');
+            for (const t of summary.recentTitles) console.log(`    • ${t}`);
+            console.log('');
+            console.log('  Use :lesson <query> to search');
+            break;
+
+        case 'lesson':
+            if (!lessonBible) {
+                const { LessonBible } = require('./brain/lesson_bible.js');
+                lessonBible = new LessonBible(brain);
+            }
+            if (args.length > 0) {
+                const query = args.join(' ');
+                const results = lessonBible.search(query);
+                if (results.length === 0) {
+                    console.log(`[LESSON] No results for "${query}"`);
+                } else {
+                    console.log('');
+                    console.log(`  LESSON BIBLE — ${results.length} results for "${query}"`);
+                    console.log('  ════════════════════════════════════════════════════════════');
+                    for (const r of results) {
+                        console.log(`  [${r.type}] ${r.title || r.id}`);
+                        if (r.summary) console.log(`    ${r.summary.substring(0, 120)}...`);
+                        if (r.keyInsights && r.keyInsights.length > 0) console.log(`    Insights: ${r.keyInsights.slice(0, 2).join(' | ')}`);
+                    }
+                    console.log('');
+                }
+            } else {
+                console.log('[LESSON] Usage: :lesson <search query>');
+            }
+            break;
+
         case 'plan':
             planMode = true;
             console.log('[MODE] Switched to PLAN mode — I will explore and ask questions before acting');
